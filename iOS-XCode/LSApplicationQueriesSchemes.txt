@@ -1,0 +1,22 @@
+# Common Most U.S. Cities
+
+uber
+lyft
+bird
+jump
+limebike
+car2go
+zipcar
+drivemaven
+
+# Additional U.S. East
+
+nextbike
+sobi
+viarider
+
+# Additional U.S. West
+
+scoot
+gobike
+biketownpdx

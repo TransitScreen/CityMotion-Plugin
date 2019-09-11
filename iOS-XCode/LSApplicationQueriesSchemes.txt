@@ -1,4 +1,4 @@
-# Common Most U.S. Cities
+# Common Services in Most U.S. Cities
 
 uber
 lyft
@@ -9,13 +9,13 @@ car2go
 zipcar
 drivemaven
 
-# Additional U.S. East
+# Additional U.S. East Services
 
 nextbike
 sobi
 viarider
 
-# Additional U.S. West
+# Additional U.S. West Services
 
 scoot
 gobike

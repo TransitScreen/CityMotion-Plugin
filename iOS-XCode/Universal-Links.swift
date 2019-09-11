@@ -1,6 +1,7 @@
 //
-// WebViewControllerExtension.swift
+// Universal-Links.swift
 // Example Code for CityMotion-Web Integration
+// externalLinks=universal
 //
 
 import UIKit
@@ -15,7 +16,7 @@ extension WebViewController {
             print("requestUrl?", requestUrl) // Helpful debug
 
             // Send all universal links to UIApplication for handling
-            if (requestUrl.contains("CM_UNIVERSAL_LINK") || requestUrl.contains("CM_URI")) {
+            if (requestUrl.contains("CM_UNIVERSAL_LINK")) {
                 UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: nil)
                 decisionHandler(.cancel)
                 return

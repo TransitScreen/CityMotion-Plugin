@@ -1,5 +1,5 @@
 //
-// WebViewControllerExtension.swift
+// ExampleWebViewController.swift
 // Example Code for CityMotion-Web Integration
 //
 

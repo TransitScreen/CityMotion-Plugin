@@ -14,11 +14,15 @@ import Foundation
 
 import UIKit
 import WebKit
+import CoreLocation
 
-class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDelegate {
+class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDelegate, CLLocationManagerDelegate {
     
     // MARK: CityMotion Webview URL - Replace this with your PRODUCTION ready link
-    var cityMotionWebviewLocationCodeURL = "https://citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ&externalLinks=all&coordinates=40.7128,-74.0060"
+    //var cityMotionWebviewLocationCodeURL = "https://citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ&externalLinks=all&coordinates=40.7128,-74.0060"
+    
+    //    let cityMotionWebviewCoordinatesURL = "https://citymotion.io/?key={YOUR_KEY}"
+    let cityMotionWebviewCoordinatesURL = "https://citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ"
     
     // MARK: Scene UI
     var safeAreaView: UIView!
@@ -27,10 +31,21 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
     
     var webView: WKWebView!
     var loadingSpinner: UIActivityIndicatorView!
-    var cityMotionWhiteColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.0)
+    
+    var firstUpdate: Bool!
+    var allowUpdate: Bool!
+    
+    var lat: Double!
+    var long: Double!
+
+    let cityMotionWhiteColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.0)
+    let locationManager = CLLocationManager()
     
     override func loadView() {
         super.loadView()
+        
+        self.firstUpdate = true
+        self.allowUpdate = true
         
         // MARK: Create Safe Area View
         let safeAreaView = UIView(frame: .zero)
@@ -108,6 +123,11 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // MARK: Ask for Location Services permission
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        locationManager.delegate = self
+        
         // MARK: Initialize Navigation Bar
         let navItems = UINavigationItem.init(title: "CityMotion")
         let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.done, target: self, action: #selector(dismissView(sender:)))
@@ -123,11 +143,6 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0
-        
-        // MARK: Load webview
-        if let url = URL(string: self.cityMotionWebviewLocationCodeURL) {
-            self.webView.load(URLRequest(url: url))
-        }
     }
     
     @objc func dismissView(sender: UIBarButtonItem) {
@@ -176,7 +191,39 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
         
     }
     
-    
-    
-    
+    // MARK: Location Handler
+    func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
+        let lastLocation = locations.last!
+        
+        let lat = lastLocation.coordinate.latitude
+        let long = lastLocation.coordinate.longitude
+        
+        self.lat = lat
+        self.long = long
+
+        print("New Location", lat, long)
+
+        // MARK: Switch to Significant Changes to preserve battery
+        if self.firstUpdate {
+            self.firstUpdate = false
+            if CLLocationManager.significantLocationChangeMonitoringAvailable() {
+                locationManager.stopUpdatingLocation()
+                locationManager.startMonitoringSignificantLocationChanges()
+            }
+        }
+
+        // MARK: Update Webview with throttle
+        let finalURL = "\(self.cityMotionWebviewCoordinatesURL)&coordinates=\(lat),\(long)";
+
+        if self.allowUpdate {
+            if let url = URL(string: finalURL) {
+                self.webView.load(URLRequest(url: url))
+                self.allowUpdate = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) { // After 10 seconds let location changes update again
+                   self.allowUpdate = true
+                }
+            }
+        }
+    }
+
 }

@@ -76,6 +76,8 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow the app to find nearby mobility choices!</string>
+	<string>Allow CityMotion to show you nearby mobility choices!</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Allow CityMotion to show you nearby mobility choices!</string>
 </dict>
 </plist>

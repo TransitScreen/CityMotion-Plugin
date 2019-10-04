@@ -214,9 +214,10 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
             }
         }
 
-        // MARK: Update Webview with throttle
+        // MARK: Generate endpoint URL, add optional URL parameters here if needed
         let finalURL = "\(cityMotionWebviewCoordinatesURL)?key=\(cityMotionWebviewKey)&coordinates=\(lat),\(long)&externalLinks=true";
 
+        // MARK: Load Webview with update throttle
         if self.allowUpdate {
             if let url = URL(string: finalURL) {
                 self.webView.load(URLRequest(url: url))

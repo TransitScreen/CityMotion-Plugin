@@ -24,21 +24,6 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-		<key>NSAllowsArbitraryLoadsInWebContent</key>
-		<true/>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost:8000</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Allow CityMotion to show you nearby mobility choices!</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

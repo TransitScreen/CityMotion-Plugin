@@ -125,7 +125,7 @@ class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDel
         URLCache.shared.memoryCapacity = 0
         
         // MARK: Load webview
-        if let url = URL(string: self.cityMotionWebviewLocationCodeURL) {
+        if let url = URL(string: cityMotionWebviewLocationCodeURL) {
             self.webView.load(URLRequest(url: url))
         }
     }

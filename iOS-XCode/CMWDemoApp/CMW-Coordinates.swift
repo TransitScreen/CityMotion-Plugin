@@ -2,11 +2,13 @@
 //  CityMotion Webview Demo App
 //
 //  CMW-Coordinates.swift
-//  View Controller to implement a Coordinates endpoint for the CityMotion Webview
-//  Reads user's Location Services
-//  Includes support for external links
+//  View Controller Module
+//  - Implements CityMotion Webview as a Coordinates endpoint
+//  - Passes Location Services updates
+//  - Includes support for external links
 //
-//  Version 1.0.0
+//  Demo v0.5.0
+//  For CMW Documentation v1.2.0
 //  Copyright © 2019 TransitScreen. All rights reserved.
 //
 
@@ -16,13 +18,13 @@ import UIKit
 import WebKit
 import CoreLocation
 
+// MARK: Replace this with your API Key
+let cityMotionWebviewKey = "LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ"
+
+// MARK: Production root URL, no need to change unless instructed to
+let cityMotionWebviewCoordinatesURL = "https://citymotion.io"
+
 class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDelegate, CLLocationManagerDelegate {
-    
-    // MARK: CityMotion Webview URL - Replace this with your PRODUCTION ready link
-    //var cityMotionWebviewLocationCodeURL = "https://citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ&externalLinks=all&coordinates=40.7128,-74.0060"
-    
-    //    let cityMotionWebviewCoordinatesURL = "https://citymotion.io/?key={YOUR_KEY}"
-    let cityMotionWebviewCoordinatesURL = "https://citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ"
     
     // MARK: Scene UI
     var safeAreaView: UIView!
@@ -213,13 +215,15 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
         }
 
         // MARK: Update Webview with throttle
-        let finalURL = "\(self.cityMotionWebviewCoordinatesURL)&coordinates=\(lat),\(long)";
+        let finalURL = "\(cityMotionWebviewCoordinatesURL)?key=\(cityMotionWebviewKey)&coordinates=\(lat),\(long)&externalLinks=true";
 
         if self.allowUpdate {
             if let url = URL(string: finalURL) {
                 self.webView.load(URLRequest(url: url))
                 self.allowUpdate = false
-                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) { // After 10 seconds let location changes update again
+                // Throttles location updates because didUpdateLocations are overly frequent
+                // We have set a 60 second timeout here to prevent our server from being spammed
+                DispatchQueue.main.asyncAfter(deadline: .now() + 60.0) {
                    self.allowUpdate = true
                 }
             }

@@ -2,21 +2,23 @@
 //  CityMotion Webview Demo App
 //
 //  CMW-LocationCode.swift
-//  View Controller to implement a Location Code endpoint for the CityMotion Webview
-//  Uses AutoLayout
-//  Includes support for external links
+//  View Controller Module
+//  - Implements CityMotion Webview as a Location Code endpoint
+//  - Uses AutoLayout
+//  - Includes support for external links
 //
-//  Version 1.0.0
+//  Demo v0.5.0
+//  For CMW Documentation v1.2.0
 //  Copyright © 2019 TransitScreen. All rights reserved.
 //
 
 import UIKit
 import WebKit
 
+// MARK: CityMotion Webview URL - Replace this with your PRODUCTION ready link that includes API Key
+let cityMotionWebviewLocationCodeURL = "https://citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ&locationCode=modolabs&externalLinks=true"
+
 class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDelegate {
-    
-    // MARK: CityMotion Webview URL - Replace this with your PRODUCTION ready link
-    var cityMotionWebviewLocationCodeURL = "https://citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ&locationCode=modolabs&externalLinks=all"
     
     // MARK: Scene UI
     var safeAreaView: UIView!

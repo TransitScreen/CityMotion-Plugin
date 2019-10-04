@@ -1,7 +1,7 @@
 //
 //  CityMotion Webview Demo App
 //  LandingController.swift
-//  Landing "home" screen controller that simulates the third party app wrapper
+//  Landing Scene that simulates a third-party integration app
 //
 
 import UIKit

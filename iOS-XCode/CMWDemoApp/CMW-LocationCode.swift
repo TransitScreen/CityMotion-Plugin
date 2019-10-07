@@ -16,7 +16,7 @@ import UIKit
 import WebKit
 
 // MARK: CityMotion Webview URL - Replace this with your PRODUCTION ready link that includes API Key
-let cityMotionWebviewLocationCodeURL = "https://citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ&locationCode=modolabs&externalLinks=true"
+let cityMotionWebviewLocationCodeURL = "https://staging.citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ&locationCode=modolabs&externalLinks=true"
 
 class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
@@ -140,41 +140,34 @@ class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDel
     
     // MARK: External Link Handlers
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-                
+        
         if let requestUrl = navigationAction.request.url?.absoluteString {
             print("requestUrl?", requestUrl) // Helpful debug
             
-            if (requestUrl.contains("CM_UNIVERSAL_LINK")) {
-                // Send all universal links to UIApplication for handling
-                UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: nil)
-                decisionHandler(.cancel)
-                return
-            } else if (requestUrl.contains("CM_URI")) {
-                // Send URI links to UIApplication if possible
-                if (UIApplication.shared.canOpenURL(navigationAction.request.url!)) {
-                    UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: nil)
-                    decisionHandler(.cancel)
-                    return
-                } else {
-                    // Try to obtain and open the App Store Link passed from CityMotion
-                    if let range = requestUrl.range(of: #"(?<=CM_URI=).*$"#,
-                                                    options: .regularExpression) {
-                        if !requestUrl[range].isEmpty {
-                            if let appStoreLink = URL(string: String(requestUrl[range])) {
-                                UIApplication.shared.open(appStoreLink, options: [:], completionHandler: nil)
-                                decisionHandler(.cancel)
-                                return
+            if (requestUrl.contains("CM_UNIVERSAL_LINK") || requestUrl.contains("CM_URI")) {
+                // Send all links to UIApplication if possible, method avoids canOpenURL which requires Info.plist query permissions
+                UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: {
+                    (success) in
+                    if !success {
+                        // Try to obtain and open the App Store Link passed from CityMotion
+                        if let range = requestUrl.range(of: #"(?<=APP_STORE_LINK=).*$"#,
+                                                        options: .regularExpression) {
+                            if !requestUrl[range].isEmpty {
+                                if let appStoreLink = URL(string: String(requestUrl[range])) {
+                                    UIApplication.shared.open(appStoreLink, options: [:], completionHandler: nil)
+                                    decisionHandler(.cancel)
+                                    return
+                                }
                             }
                         }
                     }
-                }
+                })
+            } else {
+                // Otherwise all URLs may load in WebView
+                decisionHandler(.allow)
             }
+            
         }
-        
-        // Otherwise all URLs may load in WebView
-        decisionHandler(.allow)
-        
     }
     
 }
-

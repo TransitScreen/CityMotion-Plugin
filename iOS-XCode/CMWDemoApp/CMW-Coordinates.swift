@@ -19,7 +19,7 @@ import WebKit
 import CoreLocation
 
 // MARK: Replace this with your API Key
-let cityMotionWebviewKey = "LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ"
+let cityMotionWebviewKey = "PUT YOUR KEY HERE"
 
 // MARK: Production root URL, no need to change unless instructed to
 let cityMotionWebviewCoordinatesURL = "https://citymotion.io"

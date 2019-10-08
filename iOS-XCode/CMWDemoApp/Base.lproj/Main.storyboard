@@ -11,13 +11,13 @@
         <!--Landing Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LandingController" customModule="CMWDemoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LandingController" customModule="CMW_Demo_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="uHa-op-SuD">
-                                <rect key="frame" x="20" y="44" width="374" height="360"/>
+                                <rect key="frame" x="20" y="44" width="374" height="422"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CMW Demo App v0.5.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSp-xZ-7DG">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -37,8 +37,17 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFT-5K-UNz">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This build is configured to show Modo Labs endpoints" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71s-jS-U2L">
                                         <rect key="frame" x="0.0" y="124" width="374" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Qvi-DW-5uc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFT-5K-UNz">
+                                        <rect key="frame" x="0.0" y="186" width="374" height="50"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="coq-cT-XPB"/>
@@ -57,7 +66,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Be sure to specify cityMotionWebviewLocationCodeURL in CMW-LocationCode" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3I5-gw-7lA">
-                                        <rect key="frame" x="0.0" y="186" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="248" width="374" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="oFm-FF-3Xd"/>
                                         </constraints>
@@ -66,7 +75,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlm-g5-PEd">
-                                        <rect key="frame" x="0.0" y="248" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="310" width="374" height="50"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="pQZ-mt-cM4"/>
@@ -85,7 +94,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="* Be sure to specify cityMotionWebviewKey in CMW-Coordinates" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCs-nJ-RgN">
-                                        <rect key="frame" x="0.0" y="310" width="374" height="50"/>
+                                        <rect key="frame" x="0.0" y="372" width="374" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="PPN-G0-bKS"/>
                                         </constraints>
@@ -115,7 +124,7 @@
         <!--Location Code Controller-->
         <scene sceneID="I0B-F4-QiT">
             <objects>
-                <viewController id="2ZS-h9-tDo" customClass="CMWLocationCodeController" customModule="CMWDemoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="2ZS-h9-tDo" customClass="CMWLocationCodeController" customModule="CMW_Demo_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CMz-BP-wRB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -133,7 +142,7 @@
         <!--Coordinates Controller-->
         <scene sceneID="ewI-FC-4Ps">
             <objects>
-                <viewController id="tsR-BV-Uph" customClass="CMWCoordinatesController" customModule="CMWDemoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tsR-BV-Uph" customClass="CMWCoordinatesController" customModule="CMW_Demo_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EMf-po-VWO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

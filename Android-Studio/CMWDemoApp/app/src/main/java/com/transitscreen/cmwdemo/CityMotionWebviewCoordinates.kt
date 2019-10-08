@@ -21,7 +21,10 @@ import java.util.*
 /* REPLACE THIS with your production API Key */
 const val cityMotionWebviewAPIKey = "LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ"
 
-/* Do not change this unless instructed to */
+/* ADD OPTIONAL PARAMETERS here if needed ie: &param=prop&param=prop */
+const val cityMotionWebviewParameters = "&externalLinks=true"
+
+/* Base Production URL, do not change unless instructed to */
 const val cityMotionWebviewProductionEndpoint = "https://citymotion.io"
 
 class CityMotionWebviewCoordinates : AppCompatActivity() {
@@ -74,6 +77,8 @@ class CityMotionWebviewCoordinates : AppCompatActivity() {
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
         webView.overScrollMode = WebView.OVER_SCROLL_NEVER
+
+
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(
                 view: WebView?,
@@ -126,12 +131,12 @@ class CityMotionWebviewCoordinates : AppCompatActivity() {
 
         // get the user's current location
         fusedLocationClient.getLastLocation()
-            .addOnSuccessListener({ location ->
+            .addOnSuccessListener { location ->
                 if (location != null) {
                     println("LOCATION ${location}")
-                    this.currentLatitude = location!!.getLatitude()
-                    this.currentLongitude = location!!.getLongitude()
-                    val url = "${cityMotionWebviewProductionEndpoint}/?key=${cityMotionWebviewAPIKey}&externalLinks=true&coordinates=${this.currentLatitude},${this.currentLongitude}"
+                    this.currentLatitude = location.getLatitude()
+                    this.currentLongitude = location.getLongitude()
+                    val url = "${cityMotionWebviewProductionEndpoint}/?key=${cityMotionWebviewAPIKey}&coordinates=${this.currentLatitude},${this.currentLongitude}${cityMotionWebviewParameters}"
                     print("Load URL ${url}")
                     webView.loadUrl(url)
 
@@ -143,7 +148,7 @@ class CityMotionWebviewCoordinates : AppCompatActivity() {
                     }, 60000)
 
                 }
-            })
+            }
             .addOnFailureListener({ e ->
                 e.printStackTrace()
             })
@@ -159,7 +164,7 @@ class CityMotionWebviewCoordinates : AppCompatActivity() {
                         currentLatitude = location.latitude
                         currentLongitude = location.longitude
                         if (doUpdates) {
-                            val url = "${cityMotionWebviewProductionEndpoint}/?key=${cityMotionWebviewAPIKey}&externalLinks=true&coordinates=${currentLatitude},${currentLongitude}"
+                            val url = "${cityMotionWebviewProductionEndpoint}/?key=${cityMotionWebviewAPIKey}&coordinates=${currentLatitude},${currentLongitude}${cityMotionWebviewParameters}"
                             print("Load URL ${url}")
                             webView.loadUrl(url)
                             doUpdates = false

@@ -7,7 +7,6 @@
 //  - Passes Location Services updates
 //  - Includes support for external links
 //
-//  Demo v0.5.0
 //  For CMW Documentation v1.2.0
 //  Copyright © 2019 TransitScreen. All rights reserved.
 //
@@ -21,6 +20,9 @@ import CoreLocation
 // MARK: Replace this with your API Key
 let cityMotionWebviewKey = "LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ"
 
+// MARK: Any additional parameters to be appended to the endpoint (ie: &param=prop&param=prop)
+let cityMotionParameters = "&externalLinks=true"
+
 // MARK: Production root URL, no need to change unless instructed to
 let cityMotionWebviewCoordinatesURL = "https://citymotion.io"
 
@@ -33,6 +35,8 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
     
     var webView: WKWebView!
     var loadingSpinner: UIActivityIndicatorView!
+    
+    var alertPopup: UIAlertController!
     
     var firstUpdate: Bool!
     var allowUpdate: Bool!
@@ -213,7 +217,7 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
         }
 
         // MARK: Generate endpoint URL, add optional URL parameters here if needed
-        let finalURL = "\(cityMotionWebviewCoordinatesURL)?key=\(cityMotionWebviewKey)&coordinates=\(lat),\(long)&externalLinks=true";
+        let finalURL = "\(cityMotionWebviewCoordinatesURL)?key=\(cityMotionWebviewKey)&coordinates=\(lat),\(long)\(cityMotionParameters)";
 
         // MARK: Load Webview with update throttle
         if self.allowUpdate {
@@ -228,6 +232,45 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
                 }
             }
         }
+    }
+    
+    // MARK: Recover from user denying permissions
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("User changed location auth to \(status.rawValue)")
+        if status == CLAuthorizationStatus.denied {
+            showLocationStatusAlert()
+        } else if status == CLAuthorizationStatus.authorizedAlways || status == CLAuthorizationStatus.authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        } else if status == CLAuthorizationStatus.notDetermined {
+            // User requested to "Re-ask" them
+            locationManager.requestWhenInUseAuthorization()
+            if self.alertPopup != nil {
+                self.alertPopup.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+
+    // MARK: User denied location permissions
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("User denied location: \(error)")
+        showLocationStatusAlert()
+    }
+    
+    func showLocationStatusAlert() {
+        let alertPopup = UIAlertController(title: "Location Settings", message: "Please enable 'Allow While Using App' to show nearby mobility choices.", preferredStyle: UIAlertController.Style.alert)
+        self.present(alertPopup, animated: true, completion: nil)
+        alertPopup.addAction(UIAlertAction(title: "Set Location Settings", style: .default, handler: { action in
+            switch action.style {
+                case .default:
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                case .cancel:
+                    print("cancel")
+                case .destructive:
+                    print("destructive")
+                @unknown default: break
+                }
+        }))
+        self.alertPopup = alertPopup
     }
 
 }

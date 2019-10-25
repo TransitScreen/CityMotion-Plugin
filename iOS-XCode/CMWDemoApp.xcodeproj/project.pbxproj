@@ -293,7 +293,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/CMWDemoApp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.5.1;
+				MARKETING_VERSION = 0.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.transitscreen.cmwdemo;
 				PRODUCT_NAME = "CMW Demo App";
 				SWIFT_VERSION = 5.0;
@@ -311,7 +311,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/CMWDemoApp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.5.1;
+				MARKETING_VERSION = 0.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.transitscreen.cmwdemo;
 				PRODUCT_NAME = "CMW Demo App";
 				SWIFT_VERSION = 5.0;

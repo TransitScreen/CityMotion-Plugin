@@ -7,7 +7,6 @@
 //  - Uses AutoLayout
 //  - Includes support for external links
 //
-//  Demo v0.5.0
 //  For CMW Documentation v1.2.0
 //  Copyright © 2019 TransitScreen. All rights reserved.
 //

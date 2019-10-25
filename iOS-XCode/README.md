@@ -1,11 +1,14 @@
 # CityMotion Webview for iOS Integration
 
-**Version 0.5.0**
-
 The `CMWDemoApp` is an XCode production ready demo application that simulates a 
 typical partner integration third-party app with the following behavior:
 
 - App opens to a Landing scene (your "home screen" or "directory")
-- A button can navigate to the CityMotion Webview scene
-- The scene presents itself and loads CityMotion Webview
-- A back button is provided to escape back to the previous scene
+- Buttons to navigate to CityMotion Webview API endpoints (Location Code and Coordinates)
+- Webview Scenes will present and load CityMotion
+- A back button is provided to dismiss the current scene and return to the Landing scene
+
+## Features
+
+- Full support for external links
+- Location services permission denied handling and recovery

@@ -2,6 +2,7 @@ package com.transitscreen.cmwdemo
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,14 +10,19 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
+import android.provider.Settings
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
-import com.google.android.gms.tasks.Task
 import java.util.*
+import android.content.DialogInterface
+
+
+
+
 
 /* REPLACE THIS with your production API Key */
 const val cityMotionWebviewAPIKey = "LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ"
@@ -25,7 +31,7 @@ const val cityMotionWebviewAPIKey = "LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH
 const val cityMotionWebviewParameters = "&externalLinks=true"
 
 /* Base Production URL, do not change unless instructed to */
-const val cityMotionWebviewProductionEndpoint = "https://staging.citymotion.io"
+const val cityMotionWebviewProductionEndpoint = "https://citymotion.io"
 
 class CityMotionWebviewCoordinates : AppCompatActivity() {
 
@@ -37,14 +43,13 @@ class CityMotionWebviewCoordinates : AppCompatActivity() {
 
     var doUpdates: Boolean = false
 
+    var appWasLoaded: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_city_motion_webview_coordinates)
 
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 this,
@@ -54,6 +59,23 @@ class CityMotionWebviewCoordinates : AppCompatActivity() {
         } else {
             this.loadApp()
         }
+    }
+
+    override fun onRestart() {
+        super.onResume()
+
+        // Returning from location permissions screen
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Maintain the dialog
+            this.showLocationAlert()
+        } else {
+            // Permission was granted and we can reload the app but only if it was never loaded in the first place
+            if (this.appWasLoaded == false) {
+                this.loadApp()
+            }
+        }
+
     }
 
     override fun onRequestPermissionsResult(
@@ -66,11 +88,43 @@ class CityMotionWebviewCoordinates : AppCompatActivity() {
                 this.loadApp()
             } else {
                 // User rejected permission
+                this.showLocationAlert()
             }
         }
     }
 
+    fun showLocationAlert() {
+        val alertDialog = AlertDialog.Builder(this)
+            // set icon
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            // set title
+            .setTitle("Location Permissions")
+            // set message
+            .setMessage("Enable your Location to show nearby mobility choices.")
+            // set positive button
+            .setPositiveButton("Open App Permissions", DialogInterface.OnClickListener { dialogInterface, i ->
+                // set what would happen when positive button is clicked
+                openApplicationSettings()
+//                finish()
+            })
+            // set negative button
+//            .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
+//                //set what should happen when negative button is clicked
+//            })
+            .show()
+    }
+
+    fun openApplicationSettings() {
+        val intent = Intent()
+        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+        val uri = Uri.fromParts("package", this.packageName, null)
+        intent.data = uri
+        startActivity(intent)
+    }
+
     fun loadApp() {
+
+        this.appWasLoaded = true
 
         /* Create webview */
         val webView = findViewById<WebView>(R.id.webViewFrame)

@@ -9,8 +9,16 @@ import WebKit
 
 class LandingController: UIViewController {
     
+    @IBOutlet weak var headerTitle: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            headerTitle.text = "CityMotion Webview Demo App v\(appVersion)"
+        }
+        
     }
         
 }

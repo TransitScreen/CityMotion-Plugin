@@ -19,7 +19,7 @@ import WebKit
 import CoreLocation
 
 // MARK: Replace this with your API Key
-let cityMotionWebviewKey = "PUT YOUR KEY HERE"
+let cityMotionWebviewKey = "LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ"
 
 // MARK: Production root URL, no need to change unless instructed to
 let cityMotionWebviewCoordinatesURL = "https://citymotion.io"
@@ -158,27 +158,31 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
     // MARK: External Link Handlers
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
-        if let requestUrl = navigationAction.request.url?.absoluteString {
-            print("requestUrl?", requestUrl) // Helpful debug
+        if let requestUrlString = navigationAction.request.url?.absoluteString {
+            print("Request Url String", requestUrlString)
             
-            if (requestUrl.contains("CM_UNIVERSAL_LINK") || requestUrl.contains("CM_URI")) {
+            if (requestUrlString.contains("CM_UNIVERSAL_LINK") || requestUrlString.contains("CM_URI")) {
                 // Send all links to UIApplication if possible, method avoids canOpenURL which requires Info.plist query permissions
-                UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: {
-                    (success) in
-                    if !success {
-                        // Try to obtain and open the App Store Link passed from CityMotion
-                        if let range = requestUrl.range(of: #"(?<=APP_STORE_LINK=).*$"#,
-                                                        options: .regularExpression) {
-                            if !requestUrl[range].isEmpty {
-                                if let appStoreLink = URL(string: String(requestUrl[range])) {
-                                    UIApplication.shared.open(appStoreLink, options: [:], completionHandler: nil)
-                                    decisionHandler(.cancel)
-                                    return
+                if let requestUrl = navigationAction.request.url {
+                    UIApplication.shared.open(requestUrl, options: [:], completionHandler: {
+                        (success) in
+                        if success == false {
+                            // Link failed so try to obtain and open the App Store Link passed from CityMotion
+                            if let range = requestUrlString.range(of: #"(?<=APP_STORE_LINK=).*$"#,
+                                                            options: .regularExpression) {
+                                print("App Store Link", requestUrlString[range])
+                                if requestUrlString[range].isEmpty == false {
+                                    if let appStoreLink = URL(string: String(requestUrlString[range])) {
+                                        UIApplication.shared.open(appStoreLink, options: [:], completionHandler: nil)
+                                    }
                                 }
                             }
                         }
-                    }
-                })
+                    })
+                }
+                // decidePolicyFor ALWAYS needs a decision
+                // Cancel link for both successful and non-successful external link tries
+                decisionHandler(.cancel)
             } else {
                 // Otherwise all URLs may load in WebView
                 decisionHandler(.allow)
@@ -186,7 +190,7 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
             
         }
     }
-    
+
     // MARK: Location Handler
     func locationManager(_ manager: CLLocationManager,  didUpdateLocations locations: [CLLocation]) {
         let lastLocation = locations.last!
@@ -213,6 +217,7 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
 
         // MARK: Load Webview with update throttle
         if self.allowUpdate {
+            print("Loading URL", finalURL)
             if let url = URL(string: finalURL) {
                 self.webView.load(URLRequest(url: url))
                 self.allowUpdate = false

@@ -25,7 +25,7 @@ const val cityMotionWebviewAPIKey = "LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH
 const val cityMotionWebviewParameters = "&externalLinks=true"
 
 /* Base Production URL, do not change unless instructed to */
-const val cityMotionWebviewProductionEndpoint = "https://citymotion.io"
+const val cityMotionWebviewProductionEndpoint = "https://staging.citymotion.io"
 
 class CityMotionWebviewCoordinates : AppCompatActivity() {
 

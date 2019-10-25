@@ -11,7 +11,7 @@ import android.webkit.WebViewClient
 import java.net.URL
 
 /* REPLACE THIS with your production URL */
-const val cityMotionWebviewLocationCodeURL = "https://citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ&locationCode=modolabs&externalLinks=true"
+const val cityMotionWebviewLocationCodeURL = "https://staging.citymotion.io/?key=LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ&locationCode=modolabs&externalLinks=true"
 
 class CityMotionWebviewLocationCode : AppCompatActivity() {
 

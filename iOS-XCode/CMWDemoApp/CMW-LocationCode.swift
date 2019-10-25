@@ -141,27 +141,31 @@ class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDel
     // MARK: External Link Handlers
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
-        if let requestUrl = navigationAction.request.url?.absoluteString {
-            print("requestUrl?", requestUrl) // Helpful debug
+        if let requestUrlString = navigationAction.request.url?.absoluteString {
+            print("Request Url String", requestUrlString)
             
-            if (requestUrl.contains("CM_UNIVERSAL_LINK") || requestUrl.contains("CM_URI")) {
+            if (requestUrlString.contains("CM_UNIVERSAL_LINK") || requestUrlString.contains("CM_URI")) {
                 // Send all links to UIApplication if possible, method avoids canOpenURL which requires Info.plist query permissions
-                UIApplication.shared.open(navigationAction.request.url!, options: [:], completionHandler: {
-                    (success) in
-                    if !success {
-                        // Try to obtain and open the App Store Link passed from CityMotion
-                        if let range = requestUrl.range(of: #"(?<=APP_STORE_LINK=).*$"#,
-                                                        options: .regularExpression) {
-                            if !requestUrl[range].isEmpty {
-                                if let appStoreLink = URL(string: String(requestUrl[range])) {
-                                    UIApplication.shared.open(appStoreLink, options: [:], completionHandler: nil)
-                                    decisionHandler(.cancel)
-                                    return
+                if let requestUrl = navigationAction.request.url {
+                    UIApplication.shared.open(requestUrl, options: [:], completionHandler: {
+                        (success) in
+                        if success == false {
+                            // Link failed so try to obtain and open the App Store Link passed from CityMotion
+                            if let range = requestUrlString.range(of: #"(?<=APP_STORE_LINK=).*$"#,
+                                                            options: .regularExpression) {
+                                print("App Store Link", requestUrlString[range])
+                                if requestUrlString[range].isEmpty == false {
+                                    if let appStoreLink = URL(string: String(requestUrlString[range])) {
+                                        UIApplication.shared.open(appStoreLink, options: [:], completionHandler: nil)
+                                    }
                                 }
                             }
                         }
-                    }
-                })
+                    })
+                }
+                // decidePolicyFor ALWAYS needs a decision
+                // Cancel link for both successful and non-successful external link tries
+                decisionHandler(.cancel)
             } else {
                 // Otherwise all URLs may load in WebView
                 decisionHandler(.allow)

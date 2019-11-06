@@ -26,8 +26,14 @@
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Allow CityMotion to show you nearby mobility choices!</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Allow CityMotion to show you nearby mobility choices!</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Allow CityMotion to show you nearby mobility choices!</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow CityMotion to show you nearby mobility choices!</string>
+	<key>UIBackgroundModes</key>
+	<array/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

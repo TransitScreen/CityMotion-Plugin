@@ -3,11 +3,8 @@
 //
 //  CMW-Coordinates.swift
 //  View Controller Module
-//  - Implements CityMotion Webview as a Coordinates endpoint
-//  - Passes Location Services updates
-//  - Includes support for external links
 //
-//  For CMW Documentation v1.2.0
+//  For CMW Documentation v1.2.*
 //  Copyright © 2019 TransitScreen. All rights reserved.
 //
 
@@ -17,22 +14,21 @@ import UIKit
 import WebKit
 import CoreLocation
 
-// MARK: Replace this with your API Key
-let cityMotionWebviewKey = "LhYnxcU6a8GiV0o5CP4KBwpAYE3nJydf76DchXsQGUH9ybowGVzUlhr9TPJzr2OZ"
-
-// MARK: Any additional parameters to be appended to the endpoint (ie: &param=prop&param=prop)
-let cityMotionParameters = "&externalLinks=true"
-
-// MARK: Production root URL, no need to change unless instructed to
-let cityMotionWebviewCoordinatesURL = "https://citymotion.io"
-
 class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDelegate, CLLocationManagerDelegate {
     
+    // MARK: CityMotion WebView URL values for Location Code
+    var cityMotionWebviewKey = ""
+    var cityMotionParameters = ""
+
+    // MARK: Production root URL, no need to change unless instructed to
+    var cityMotionWebviewBaseURL = "https://citymotion.io"
+
     // MARK: Scene UI
     var safeAreaView: UIView!
     var browserView: UIView!
     var navigationBar: UINavigationBar!
     
+    var locationManager: CLLocationManager!
     var webView: WKWebView!
     var loadingSpinner: UIActivityIndicatorView!
     
@@ -45,8 +41,7 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
     var long: Double!
 
     let cityMotionWhiteColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.0)
-    let locationManager = CLLocationManager()
-    
+
     override func loadView() {
         super.loadView()
         
@@ -130,10 +125,12 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
         super.viewDidLoad()
         
         // MARK: Ask for Location Services permission
-        locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
+        locationManager = CLLocationManager()
         locationManager.delegate = self
-        
+        locationManager.requestWhenInUseAuthorization() // Request Always if you are configuring background modes in Capabilities
+        locationManager.startUpdatingLocation()
+//        locationManager.allowsBackgroundLocationUpdates = true
+
         // MARK: Initialize Navigation Bar
         let navItems = UINavigationItem.init(title: "CityMotion")
         let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.done, target: self, action: #selector(dismissView(sender:)))
@@ -217,7 +214,7 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
         }
 
         // MARK: Generate endpoint URL, add optional URL parameters here if needed
-        let finalURL = "\(cityMotionWebviewCoordinatesURL)?key=\(cityMotionWebviewKey)&coordinates=\(lat),\(long)\(cityMotionParameters)";
+        let finalURL = "\(cityMotionWebviewBaseURL)?key=\(cityMotionWebviewKey)&coordinates=\(lat),\(long)\(cityMotionParameters)";
 
         // MARK: Load Webview with update throttle
         if self.allowUpdate {
@@ -236,7 +233,7 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
     
     // MARK: Recover from user denying permissions
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print("User changed location auth to \(status.rawValue)")
+        print("Authorization Status: \(status.rawValue)")
         if status == CLAuthorizationStatus.denied {
             showLocationStatusAlert()
         } else if status == CLAuthorizationStatus.authorizedAlways || status == CLAuthorizationStatus.authorizedWhenInUse {

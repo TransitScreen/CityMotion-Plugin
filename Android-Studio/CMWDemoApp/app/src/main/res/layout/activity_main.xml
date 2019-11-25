@@ -17,7 +17,7 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CityMotion Webview Demo App v0.5.2\nThis build is configured for Modo Labs"
+            android:text="CityMotion Webview Demo App v0.5.3\nThis build is configured for Modo Labs"
             android:layout_margin="20dp"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"

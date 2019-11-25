@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -29,6 +30,7 @@ class CityMotionWebviewLocationCode : AppCompatActivity() {
         if (savedInstanceState !== null) {
             webView.restoreState(savedInstanceState)
         } else {
+            Log.d("CMWDebug Load URL:", cityMotionWebviewLocationCodeURL)
             webView.loadUrl(cityMotionWebviewLocationCodeURL)
         }
 
@@ -40,7 +42,7 @@ class CityMotionWebviewLocationCode : AppCompatActivity() {
                 // Detect CityMotion specific links for handling
                 if (request?.url != null) {
                     val checkUrl = request.url.toString()
-                    println("External Link Override To: ${checkUrl}")
+                    Log.d("CMWDebug External Link Override To:", "${checkUrl}")
                     // This attempts to start an activity with the link
                     try {
                         val intent = Intent(Intent.ACTION_VIEW)
@@ -55,10 +57,10 @@ class CityMotionWebviewLocationCode : AppCompatActivity() {
                         }
                     } catch (e: ActivityNotFoundException) {
                         // If the above fails for any reason, try to open Google Play link
-                        println("External Link Unreachable: " + e.toString())
+                        Log.d("CMWDebug External Link Exception: ", "${e}")
                         val regex = Regex(pattern = "(?<=APP_STORE_LINK=).*\$")
                         val matchUrl = regex.find(checkUrl)?.value
-                        println("External Link Match ${matchUrl}")
+                        Log.d("CMWDebug External Link Fallback: ", "${matchUrl}")
                         if (matchUrl.isNullOrEmpty() == false) {
                             val intent = Intent(Intent.ACTION_VIEW)
                             intent.data = Uri.parse(matchUrl)

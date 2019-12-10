@@ -1,6 +1,8 @@
 # CityMotion Webview Documentation and Code Examples
 
-This documentation and code is intended to help partner mobile apps integrate CityMotion Webview. API key is required.
+This documentation and code is intended to help partner mobile apps integrate CityMotion Webview. 
+
+An API key and partner agreement are required - please email sales@transitscreen.com.
 
 ## Documentation
 - [Available here](https://github.com/TransitScreen/CityMotion-Webview/blob/master/api-documentation/citymotion-web-api-documentation.md)

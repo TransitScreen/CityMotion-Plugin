@@ -1,6 +1,9 @@
-# CityMotion Webview Code Examples
-Code to help partner mobile apps integrate CityMotion Web
-Synchronized with API Documentation Version 1.2.x
+# CityMotion Webview Documentation and Code Examples for partner mobile apps
+
+Code to help partner mobile apps integrate CityMotion Webview
+
+## Documentation
+- [Available here](https://github.com/TransitScreen/CityMotion-Webview/blob/master/api-documentation/citymotion-web-api-documentation.md)
 
 ## Android-Studio
 - Fully working Android Studio application

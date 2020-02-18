@@ -1,7 +1,7 @@
-# CityMotion Webview - Integration Partner API Documentation
+# CityMotion-Plugin Integration Partner API Documentation
 **Version 1.2.+**
 
-CityMotion Webview (CMW) provides local real-time mobility information displayed on "cards" in a web app designed to be integrated into other apps. CMW is a HTML5 webpage using the ReactJS framework, which performs standard HTTP calls about every minute to its API to update information.
+CityMotion-Plugin provides local real-time mobility information displayed on "cards" in a web app designed to be integrated into other apps. The Plugin loads CityMotion-Web (CMW) which is a HTML5 webpage using the ReactJS framework.  This page performs standard HTTP calls about every minute to its API to update page information.
 
 CMW is designed to be loaded inside a native WebView browser view within your app. Individual cards are responsive with a minimum width of 300px and a maximum width of 500px, to preserve legibility of the information presented. This should accommodate most mobile and tablet device dimensions.  
 
@@ -13,7 +13,7 @@ This section describes the URL endpoints available and their optional parameters
 
 ## Location Code Endpoint
 
-GET a CityMotion Webview for a single Location Code.  
+GET a CityMotion WebView for a single Location Code.  
 
 This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at a single physical location associated with a Location Code.  The information is curated by TransitScreen for your users. The information asynchronously updates every 55 seconds.
 

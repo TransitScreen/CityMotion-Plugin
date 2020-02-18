@@ -82,7 +82,9 @@ These apply to all endpoints in our API.  All optional parameters means these do
 
 ### barPosition
 - Description:  Shows a navigation bar which lets the user filter out cards between different transportation modes.  
+- Requirements: None
 - Usage: `barPosition = (none, top, bottom)`
+- Default: Not enabled if not specified.
 - Example: `barPosition=top`
 - Options:
   - Default: `none` or do not include this parameter
@@ -91,6 +93,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
 
 ### openTo
 - Description:  Opens the viewport to show only selected transportation modes.  Combined with barPosition, lets the user begin in a particular filter.  Without a barPosition, the user will be permanently stuck in this filter. 
+- Requirements: None
 - Usage: `openTo = (all, train, bus, bike, car, shuttle)`
 - Example: `openTo=train`
 - Options:
@@ -101,9 +104,19 @@ These apply to all endpoints in our API.  All optional parameters means these do
   - `car` shows all car sharing services such as car2go, zipcar, etc
   - `shuttle` shows any private shuttles that are linked to your account
 
+### favorites
+- Description: Allows users to favorite cards.  Adds a star icon to the header of each card.  Tapping on the star icon will "favorite" the card and store the card in browser cookie memory.  The next time the user returns, the card will be prioritized to the top and the star will remain selected. 
+- Requirements: Should work with the default cookie preservation behavior of WebView Safari. Do not clear session cookies.
+- Usage: `favorites = (true)` 
+- Example: `favorites=true`
+- Options:
+  - Default: `none` or do not include this parameter, stars will not appear
+  - `true` enables this feature
+
 ### externalLinks
 - Notice: **This feature requires custom native app code, see Custom Third Party Integration Guide**
 - Description: This will show link buttons to external apps such as Uber.
+- Requirements: Requires custom native app code.  Without this code, buttons will do nothing.
 - Usage: `externalLinks = (true, none)`
 - Example: `externalLinks=true`
 - Options:
@@ -137,7 +150,6 @@ The Coordinates plugin provides the following:
 ### Android
 
 For both LocationCode and Coordinates plugins, the plugin provides external link handler requests.
-
 
 ## Light Integration
 

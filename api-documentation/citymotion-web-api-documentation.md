@@ -1,5 +1,5 @@
 # CityMotion Webview - Integration Partner API Documentation
-**Version 1.2.2+**
+**Version 1.2.+**
 
 CityMotion Webview (CMW) provides local real-time mobility information displayed on "cards" in a web app designed to be integrated into other apps. CMW is a HTML5 webpage using the ReactJS framework, which performs standard HTTP calls about every minute to its API to update information.
 
@@ -13,15 +13,15 @@ This section describes the URL endpoints available and their optional parameters
 
 ## Location Code Endpoint
 
-GET a CityMotion Webview for a single Location Code  
+GET a CityMotion Webview for a single Location Code.  
 
 This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at a single physical location associated with a Location Code.  The information is curated by TransitScreen for your users. The information asynchronously updates every 55 seconds.
 
 This endpoint does not require location services. If you are using this endpoint, TransitScreen will provide you an API key and Location Code.
 
 - Usage: `https://citymotion.io?locationCode={CODE}&key={KEY}{&OPTIONAL_PARAMS}`
-- Base Example: `https://citymotion.io?locationCode=building123&key=abcdefghjiklmnop`
-- Example with Parameters: `https://citymotion.io?locationCode=building123&key=abcdefghjiklmnop&externalLinks=true&barPosition=top`
+- Base Example: `https://citymotion.io?locationCode=building123&key=abcdefghijklmopqrstuv`
+- Example with Parameters: `https://citymotion.io?locationCode=building123&key=abcdefghijklmopqrstuv&externalLinks=true&barPosition=top`
 - Method: `GET`
 
 ### Required Parameters
@@ -40,19 +40,21 @@ This endpoint does not require location services. If you are using this endpoint
 See Optional Parameters Guide
 
 ### Error Handling
-Page will show an error message if location code or customer key is incorrect
+Page will show an error message if location code or customer key is incorrect.
 
 ## Coordinates Endpoint
 
-GET a CityMotion Webview for a single Location Code  
+GET a CityMotion Webview at a set of coordinates.
 
-This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at a single physical location associated with a Location Code.  The information is curated by TransitScreen for your users. The information asynchronously updates every 55 seconds.
+This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at the supplied coordinates.  The information is curated by TransitScreen for your users. The information asynchronously updates every 55 seconds.
 
-This endpoint does not require location services. If you are using this endpoint, TransitScreen will provide you an API key and Location Code.
+Obtain your user’s Location Services latitude and longitude and pass the information to the endpoint URL string.  If the user changes location, the webpage will not update to the user’s location.   You must update the URL string with the new coordinates and reload the WebView.  
 
-- Usage: `https://citymotion.io?locationCode={CODE}&key={KEY}{&OPTIONAL_PARAMS}`
-- Base Example: `https://citymotion.io?locationCode=building123&key=abcdefghjiklmnop`
-- Example with Parameters: `https://citymotion.io?locationCode=building123&key=abcdefghjiklmnop&externalLinks=true&barPosition=top`
+If you use both locationCode and coordinates endpoints, the locationCode will override the coordinates.
+
+- Usage: `https://citymotion.io?coordinates={LATITUDE},{LONGITUDE}&key={KEY}{&OPTIONAL_PARAMS}`
+- Base Example: `https://citymotion.io?coordinates=38.9,-77.03&key=abcdefghijklmopqrstuv`
+- Example with Parameters: `https://citymotion.io?coordinates=38.9,-77.03&key=abcdefghijklmopqrstuv&externalLinks=true&barPosition=top`
 - Method: `GET`
 
 ### Required Parameters
@@ -62,16 +64,16 @@ This endpoint does not require location services. If you are using this endpoint
 - Usage: `key = (string: your customer key, all lowercase)`
 - Example: `key=abcdefghijklmopqrstuv`
 
-#### locationCode
-- Description: Your Location Code is provided by TransitScreen to identify your custom Hub screen to show the user.   
-- Usage: `locationCode = (string: a short phrase with letters and/or numbers, no spaces, lowercased)`
-- Example: `locationCode=building123`
+#### coordinates
+- Description: A set of latitude and longitude separated by comma. We prefer values are truncated to 4 decimal places (ie: 0.0001).
+- Usage: `coordinates = (string: only numbers, no spaces)`
+- Example: `coordinates=38.9019,-77.0389`
 
 #### Optional Parameters
 See Optional Parameters Guide
 
 ### Error Handling
-Page will show an error message if location code or customer key is incorrect
+Page will show an error message if the customer key is incorrect.  
 
 ---
 

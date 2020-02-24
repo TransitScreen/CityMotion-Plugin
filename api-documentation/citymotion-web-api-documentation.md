@@ -157,6 +157,16 @@ For both LocationCode and Coordinates plugins, the plugin provides external link
 - Simply load a Location Code URL in your Webview
 - The Coordinates URL requires that you have already requested user permission for Location Services, determined the user's latitude and longitude and added those parameters to the URL.
 
+# Core Features
+
+CMW has built-in core features that allow the user experience to be more useful in accessing information. These may be behaviors already noted in this documentation.
+
+- Row Tap to Expand: Card rows will expand to show more prediction information available from the API than the first two predictions.  Tapping again will collapse it.
+- See More Card Rows: Stops that have an excessive amount of incoming vehicle routes will be hidden and a footer button will be available to expand to see these additional rows. 
+- Responsive Column Design: Columns will break depending on the device resolution. Mobile has 1 column, tablet has 2 or 3 columns, and desktops beyond have up to 4 columns.
+- Auto Updating: About every 55 seconds, the web application will request new arrival data from the API and asynchronously update cards. There is no need to auto-refresh the page.  For Location Codes, only row data is affected.  For Coordinates calls, cards may appear or disappear if the user is moving.
+- Update Recovery: In the event of network connection interruption or slowdown, the updater will back off and continue re-attempting to call the server for new API data. 
+
 # Frequent Questions
 
 ### When should I use barPosition?

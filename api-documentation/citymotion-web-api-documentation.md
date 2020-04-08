@@ -87,7 +87,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
 - Default: Not enabled if not specified.
 - Example: `ui=dark`
 - Options:
-  - Default: `none` or do not include this parameter
+  - Default: `none` or do not include this parameter, will show the default light theme
   - `dark` changes the color theme to a Dark Mode
 
 ### Navigation Bar (barPosition)
@@ -136,7 +136,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
 # Custom Third Party Integration Guide
 CityMotion Webview (CMW) is intended to work inside your third-party native mobile apps (Customer App).  We define two levels of integration:
 
-- Light Integration - Customer loads the CMW URL in their Native Webview 
+- Minor Integration - Customer loads the CMW URL in their Native Webview 
   - All features work except external links (which are blocked by native webview policy)
   - Limited integration with Coordinates endpoint (Customer must pass in latitude and longitude from outside)
   
@@ -161,7 +161,7 @@ The Coordinates plugin provides the following:
 
 For both LocationCode and Coordinates plugins, the plugin provides external link handler requests.
 
-## Light Integration
+## Minor Integration
 
 ### iOS and Android
 - Simply load a Location Code URL in your Webview

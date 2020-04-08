@@ -80,8 +80,18 @@ Page will show an error message if the customer key is incorrect.
 ## Optional Parameters Guide
 These apply to all endpoints in our API.  All optional parameters means these do not need to be included for CityMotion to function properly.  They provide live customization pathways of the webview display.  These features exist on the webpage side, not your app.
 
-### barPosition
-- Description:  Shows a navigation bar which lets the user filter out cards between different transportation modes.  
+### UI Theme "Dark Mode" (ui)
+- Description:  Changes the color theme to the specified mode.  Currently enables a dark mode. Default theme is light.
+- Requirements: None
+- Usage: `ui = (dark, none)`
+- Default: Not enabled if not specified.
+- Example: `ui=dark`
+- Options:
+  - Default: `none` or do not include this parameter
+  - `dark` changes the color theme to a Dark Mode
+
+### Navigation Bar (barPosition)
+- Description:  Shows a navigation bar which lets the user navigate between different transportation categories.
 - Requirements: None
 - Usage: `barPosition = (none, top, bottom)`
 - Default: Not enabled if not specified.
@@ -91,8 +101,8 @@ These apply to all endpoints in our API.  All optional parameters means these do
   - `top` shows a navigation bar at the top of the viewport
   - `bottom` shows a navigation bar at the bottom of the viewport
 
-### openTo
-- Description:  Opens the viewport to show only selected transportation modes.  Combined with barPosition, lets the user begin in a particular filter.  Without a barPosition, the user will be permanently stuck in this filter. 
+### Landing View (openTo)
+- Description:  Opens the viewport to specified transportation category.  Combined with Navigation Bar, lets the user begin in a particular landing view.  Without a Navigation Bar, the user will be permanently shown only the specified category.
 - Requirements: None
 - Usage: `openTo = (all, train, bus, bike, car, shuttle)`
 - Example: `openTo=train`
@@ -104,7 +114,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
   - `car` shows all car sharing services such as car2go, zipcar, etc
   - `shuttle` shows any private shuttles that are linked to your account
 
-### favorites
+### Card Favorites (favorites)
 - Description: Allows users to favorite cards.  Adds a star icon to the header of each card.  Tapping on the star icon will "favorite" the card and store the card in browser cookie memory.  The next time the user returns, the card will be prioritized to the top and the star will remain selected. 
 - Requirements: Should work with the default cookie preservation behavior of WebView Safari. Do not clear session cookies.
 - Usage: `favorites = (true)` 
@@ -113,7 +123,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
   - Default: `none` or do not include this parameter, stars will not appear
   - `true` enables this feature
 
-### externalLinks
+### External App Links (externalLinks)
 - Notice: **This feature requires custom native app code, see Custom Third Party Integration Guide**
 - Description: This will show link buttons to external apps such as Uber.
 - Requirements: Requires custom native app code.  Without this code, buttons will do nothing.
@@ -122,7 +132,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
 - Options:
   - Default: `none` or do not include this parameter, no link buttons will appear
   - `true` All link buttons will appear, **this requires Custom Third Party Integration Guide**
-
+  
 # Custom Third Party Integration Guide
 CityMotion Webview (CMW) is intended to work inside your third-party native mobile apps (Customer App).  We define two levels of integration:
 

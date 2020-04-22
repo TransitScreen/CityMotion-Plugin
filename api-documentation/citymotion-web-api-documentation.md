@@ -80,6 +80,16 @@ Page will show an error message if the customer key is incorrect.
 ## Optional Parameters Guide
 These apply to all endpoints in our API.  All optional parameters means these do not need to be included for CityMotion to function properly.  They provide live customization pathways of the webview display.  These features exist on the webpage side, not your app.
 
+### Maps
+- Description:  A card pop-up that displays an interactive map.  Accessed through tapping on a card header map icon. 
+- Requirements: None, uses client-side Mapbox
+- Usage: `maps = (true)`
+- Default: Not enabled if not specified.
+- Example: `maps=true`
+- Options:
+  - Default: `none` or do not include this parameter
+  - `true` will show a tappable map icon in the card header
+
 ### UI Theme "Dark Mode" (ui)
 - Description:  Changes the color theme to the specified mode.  Currently enables a dark mode. Default theme is light.
 - Requirements: None
@@ -171,6 +181,7 @@ For both LocationCode and Coordinates plugins, the plugin provides external link
 
 CMW has built-in core features that allow the user experience to be more useful in accessing information. These may be behaviors already noted in this documentation.
 
+- Route Alerts: Card rows will show agency alerts when available.  This core feature is available only in select markets currently in Boston and New York City. 
 - Row Tap to Expand: Card rows will expand to show more prediction information available from the API than the first two predictions.  Tapping again will collapse it.
 - See More Card Rows: Stops that have an excessive amount of incoming vehicle routes will be hidden and a footer button will be available to expand to see these additional rows. 
 - Responsive Column Design: Columns will break depending on the device resolution. Mobile has 1 column, tablet has 2 or 3 columns, and desktops beyond have up to 4 columns.

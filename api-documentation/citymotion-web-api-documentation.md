@@ -11,6 +11,8 @@ CMW is designed to be loaded inside a native WebView browser view within your ap
 
 This section describes the URL endpoints available and their optional parameters. See the integration section for how to setup your app so these links work properly.
 
+For most minor integration partners we will assign a short link in the form of https://citymo.io/{locationCode} and manage the redirection URL. For major integration partners utilizing the full API, they may proceed to use the features outlined in this document.
+
 ## Location Code Endpoint
 
 GET a CityMotion WebView for a single Location Code.  
@@ -19,21 +21,27 @@ This endpoint returns a fully-formed HTML webpage (using the React framework), t
 
 This endpoint does not require location services. If you are using this endpoint, TransitScreen will provide you an API key and Location Code.
 
-- Usage: `https://citymotion.io?locationCode={CODE}&key={KEY}{&OPTIONAL_PARAMS}`
-- Base Example: `https://citymotion.io?locationCode=building123&key=abcdefghijklmopqrstuv`
-- Example with Parameters: `https://citymotion.io?locationCode=building123&key=abcdefghijklmopqrstuv&externalLinks=true&barPosition=top`
+- URL Format: `https://citymotion.io?locationCode={CODE}&key={KEY}{&OPTIONAL_PARAMS}`
+- Working Example: `https://citymotion.io?locationCode=cmwdc&key=vurtEDilAilDpbLkciHwQzsGbckHozgQ3aM7HEyK4dtyTitQUAsvgGrwD0G9q8VL`
+- Working Example with Optional Parameters: `https://citymotion.io?locationCode=cmwdc&key=vurtEDilAilDpbLkciHwQzsGbckHozgQ3aM7HEyK4dtyTitQUAsvgGrwD0G9q8VL&externalLinks=true&barPosition=bottom&menu=static`
 - Method: `GET`
 
 ### Required Parameters
 
+At minimum, an API call requires a customer `key` and a location to be set (either `locationCode` or `coordinates`).
+
 #### key
 - Description: This Customer Key is provided by TransitScreen to identify your organization and authorize use.  It is only associated with the locationCode you are given.  
-- Usage: `key = (string: your customer key, all lowercase)`
-- Example: `key=abcdefghijklmopqrstuv`
+- Parameter Name: `key`
+- Parameter Values:
+  - String: A 64-character customer key given to you by TransitScreen, all lowercase, no spaces, may contain numbers
+- Example: `key=abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz01`
 
 #### locationCode
-- Description: Your Location Code is provided by TransitScreen to identify your custom Hub screen to show the user.   
-- Usage: `locationCode = (string: a short phrase with letters and/or numbers, no spaces, lowercased)`
+- Description: Your Location Code is provided by TransitScreen to identify your custom Hub screen to show the user. This parameter should be set alone with the key. If this parameter is set with a `coordinates` value, it will override and only send back Hub screen content.
+- Parameter Name: `locationCode`
+- Parameter Values:
+  - String: A short phrase with letters and/or numbers, no spaces, lowercased
 - Example: `locationCode=building123`
 
 #### Optional Parameters
@@ -52,21 +60,25 @@ Obtain your user’s Location Services latitude and longitude and pass the infor
 
 If you use both locationCode and coordinates endpoints, the locationCode will override the coordinates.
 
-- Usage: `https://citymotion.io?coordinates={LATITUDE},{LONGITUDE}&key={KEY}{&OPTIONAL_PARAMS}`
-- Base Example: `https://citymotion.io?coordinates=38.9,-77.03&key=abcdefghijklmopqrstuv`
-- Example with Parameters: `https://citymotion.io?coordinates=38.9,-77.03&key=abcdefghijklmopqrstuv&externalLinks=true&barPosition=top`
+- URL Format: `https://citymotion.io?coordinates={LATITUDE},{LONGITUDE}&key={KEY}{&OPTIONAL_PARAMS}`
+- Working Example: `https://citymotion.io?coordinates=38.9,-77.03&key=vurtEDilAilDpbLkciHwQzsGbckHozgQ3aM7HEyK4dtyTitQUAsvgGrwD0G9q8VL`
+- Working Example with Optional Parameters: `https://citymotion.io?coordinates=38.9,-77.03&key=vurtEDilAilDpbLkciHwQzsGbckHozgQ3aM7HEyK4dtyTitQUAsvgGrwD0G9q8VL&menu=static&barPosition=bottom`
 - Method: `GET`
 
 ### Required Parameters
 
 #### key
-- Description: This Customer Key is provided by TransitScreen to identify your organization and authorize use.  It is only associated with the locationCode you are given.  
-- Usage: `key = (string: your customer key, all lowercase)`
-- Example: `key=abcdefghijklmopqrstuv`
+- Description: This Customer Key is provided by TransitScreen to identify your organization. Your key must be authorized to use coordinates endpoint. 
+- Parameter Name: `key`
+- Parameter Values:
+  - String: A 64-character customer key given to you by TransitScreen, all lowercase, no spaces, may contain numbers
+- Example: `key=abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz01`
 
 #### coordinates
-- Description: A set of latitude and longitude separated by comma. We prefer values are truncated to 4 decimal places (ie: 0.0001).
-- Usage: `coordinates = (string: only numbers, no spaces)`
+- Description: A set of latitude and longitude separated by comma. We prefer values are truncated to 4 decimal places (ie: 0.0001). This parameter must be set alone with the above key.  It will be overriden in the presence of `locationCode`. 
+- Parameter Name: `coordinates`
+- Parameter Values:
+  - String: Numeric latitude and longitude coordinates, no spaces, separated by a comma.
 - Example: `coordinates=38.9019,-77.0389`
 
 #### Optional Parameters
@@ -80,75 +92,86 @@ Page will show an error message if the customer key is incorrect.
 ## Optional Parameters Guide
 These apply to all endpoints in our API.  All optional parameters means these do not need to be included for CityMotion to function properly.  They provide live customization pathways of the webview display.  These features exist on the webpage side, not your app.
 
-### Maps
+### Card Maps (maps)
 - Description:  A card pop-up that displays an interactive map.  Accessed through tapping on a card header map icon. 
 - Requirements: None, uses client-side Mapbox
-- Usage: `maps = (true)`
-- Default: Not enabled if not specified.
+- Parameter Name: `maps`
+- Parameter Values:
+  + Default: `none` or do not include this parameter. Maps not enabled.
+  + `true`: Enables maps
 - Example: `maps=true`
-- Options:
-  - Default: `none` or do not include this parameter
-  - `true` will show a tappable map icon in the card header
 
 ### UI Theme "Dark Mode" (ui)
 - Description:  Changes the color theme to the specified mode.  Currently enables a dark mode. Default theme is light.
 - Requirements: None
-- Usage: `ui = (dark, none)`
-- Default: Not enabled if not specified.
-- Example: `ui=dark`
-- Options:
-  - Default: `none` or do not include this parameter, will show the default light theme
+- Parameter Name: `ui`
+- Parameter Values:
+  - Default: `light` or do not include this parameter. Shows the default light theme.
   - `dark` changes the color theme to a Dark Mode
+- Example: `ui=dark`
 
 ### Navigation Bar (barPosition)
 - Description:  Shows a navigation bar which lets the user navigate between different transportation categories.
 - Requirements: None
-- Usage: `barPosition = (none, top, bottom)`
-- Default: Not enabled if not specified.
-- Example: `barPosition=top`
-- Options:
-  - Default: `none` or do not include this parameter
+- Parameter Name: `barPosition` 
+- Parameter Values: 
+  - Default: `none` or do not include this parameter. No bar appears.
   - `top` shows a navigation bar at the top of the viewport
   - `bottom` shows a navigation bar at the bottom of the viewport
+- Example: `barPosition=top`
 
 ### Landing View (openTo)
 - Description:  Opens the viewport to specified transportation category.  Combined with Navigation Bar, lets the user begin in a particular landing view.  Without a Navigation Bar, the user will be permanently shown only the specified category.
 - Requirements: None
-- Usage: `openTo = (all, train, bus, bike, car, shuttle)`
-- Example: `openTo=train`
-- Options:
-  - Default: `all` or do not include this parameter, this will show all card options
+- Parameter Name: `openTo`
+- Parameter Values:
+  - Default: `all` or do not include this parameter. All cards will appear.
   - `train` shows rail type transit such as trolley, streetcar, light rail, commuter trains, Amtrak, etc
   - `bus` shows buses
   - `bike` shows all bikeshare, ebikes, scooters, etc
   - `car` shows all car sharing services such as car2go, zipcar, etc
   - `shuttle` shows any private shuttles that are linked to your account
+- Example: `openTo=train`
 
 ### Card Favorites (favorites)
 - Description: Allows users to favorite cards.  Adds a star icon to the header of each card.  Tapping on the star icon will "favorite" the card and store the card in browser cookie memory.  The next time the user returns, the card will be prioritized to the top and the star will remain selected. 
-- Requirements: Should work with the default cookie preservation behavior of WebView Safari. Do not clear session cookies.
-- Usage: `favorites = (true)` 
-- Example: `favorites=true`
-- Options:
-  - Default: `none` or do not include this parameter, stars will not appear
+- Requirements: Cookies allowed. Should work with the default cookie preservation behavior of WebView Safari. Do not clear session cookies.
+- Parameter Name: `favorites` 
+- Parameter Values:
+  - Default: `none` or do not include this parameter. Favorite icon will not appear and cards will not be sorted by favorites.
   - `true` enables this feature
+- Example: `favorites=true`
+
+### Location Header (menu)
+- Description: Displays a header that describes the user's current location and some options allow for changing the location of nearby transportation options.  
+- Requirements: Cookies allowed. Should work with the default cookie preservation behavior of WebView Safari. Do not clear session cookies.
+- Parameter Name: `menu` 
+- Parameter Values:
+  - Default: `none` or do not include this parameter. No header will appear.
+  - `static` simply displays address information about the current location code or coordinates given by the URL
+  - `hub` allows a dropdown toggle to switch between location codes attached to the customer key given
+  - `anywhere` allows a fully-featured location search dropdown that will save search results for later access
+- Example: `menu=anywhere`
 
 ### External App Links (externalLinks)
 - Notice: **This feature requires custom native app code, see Custom Third Party Integration Guide**
 - Description: This will show link buttons to external apps such as Uber.
-- Requirements: Requires custom native app code.  Without this code, buttons will do nothing.
-- Usage: `externalLinks = (true, none)`
-- Example: `externalLinks=true`
-- Options:
+- Requirements: Requires custom native app code.  Without this code, buttons will either do nothing, or navigate by behavior of a Universal Link.
+- Parameter Name: `externalLinks`
+- Parameter Values:
   - Default: `none` or do not include this parameter, no link buttons will appear
-  - `true` All link buttons will appear, **this requires Custom Third Party Integration Guide**
+  - `universal` only buttons with an https address will appear (ie: Uber, Lyft), **this does not necessarily require Custom code but may produce unintended results if the user does not have the external app downloaded**
+  - `true` all link buttons will appear, **this requires Custom Third Party Integration Guide to navigate users to external apps**
+Example: `externalLinks=true`
   
 # Custom Third Party Integration Guide
 CityMotion Webview (CMW) is intended to work inside your third-party native mobile apps (Customer App).  We define two levels of integration:
 
-- Minor Integration - Customer loads the CMW URL in their Native Webview 
-  - All features work except external links (which are blocked by native webview policy)
-  - Limited integration with Coordinates endpoint (Customer must pass in latitude and longitude from outside)
+- Minor Integration - Customer loads a short link in their Native Webview 
+  - TransitScreen provides a short link that redirects to the final API. We manage the content and features delivered on your short link. 
+  - All features work except external links (which require Custom code).  Universal Links typically do work depending on your app's webview policy.
+  - This is typically a Location Code endpoint installation.
+  - Coordinates endpoints can work but coordinate information must be manually set in the URL. This is appropriate for showing a user's location at a specific moment. This experience will not follow the user around and for example, the page must be reloaded with a new URL each time the user does move.
   
 - Major Integration - Customer loads the CMW with Plugin code
   - All features work including external links (CMW provides plugin to handle external app redirects)

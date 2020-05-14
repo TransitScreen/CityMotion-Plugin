@@ -1,9 +1,9 @@
 # CityMotion-Plugin Integration Partner API Documentation
 **Version 1.2.+**
 
-CityMotion-Plugin provides local real-time mobility information displayed on "cards" in a web app designed to be integrated into other apps. The Plugin loads CityMotion-Web (CMW) which is a HTML5 webpage using the ReactJS framework.  This page performs standard HTTP calls about every minute to its API to update page information.
+CityMotion-Plugin provides local real-time mobility information displayed on "cards" in a web app designed to be integrated into other apps. The Plugin loads CityMotion-Web (CMW) which is a HTML5 web app using the ReactJS framework.  This app performs standard HTTP calls about every minute to its API to update page information.
 
-CMW is designed to be loaded inside a native WebView browser view within your app. Individual cards are responsive with a minimum width of 300px and a maximum width of 500px, to preserve legibility of the information presented. This should accommodate most mobile and tablet device dimensions.  
+CMW is designed to be loaded inside a native WebView browser view within your app or website. Individual cards are responsive with a minimum width of 300px and a maximum width of 500px, to preserve legibility of the information presented. This should accommodate most mobile and tablet device dimensions.  
 
 ---
 
@@ -15,7 +15,7 @@ For most minor integration partners we will assign a short link in the form of h
 
 ## Location Code Endpoint
 
-GET a CityMotion WebView for a single Location Code.  
+GET a CityMotion-Web for a single Location Code.  
 
 This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at a single physical location associated with a Location Code.  The information is curated by TransitScreen for your users. The information asynchronously updates every 55 seconds.
 
@@ -52,7 +52,7 @@ Page will show an error message if location code or customer key is incorrect.
 
 ## Coordinates Endpoint
 
-GET a CityMotion Webview at a set of coordinates.
+GET a CityMotion-Web at a set of coordinates.
 
 This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at the supplied coordinates.  The information is curated by TransitScreen for your users. The information asynchronously updates every 55 seconds.
 

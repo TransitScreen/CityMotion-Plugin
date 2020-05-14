@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07ADD3881FAD3EC900DF992A /* CMW Demo App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CMW Demo App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		07ADD3881FAD3EC900DF992A /* CityMotion Plugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CityMotion Plugin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07ADD38B1FAD3EC900DF992A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07ADD38D1FAD3EC900DF992A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		07ADD3901FAD3EC900DF992A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		07ADD3891FAD3EC900DF992A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				07ADD3881FAD3EC900DF992A /* CMW Demo App.app */,
+				07ADD3881FAD3EC900DF992A /* CityMotion Plugin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,7 +87,7 @@
 			);
 			name = CMWDemoApp;
 			productName = "TC Metro";
-			productReference = 07ADD3881FAD3EC900DF992A /* CMW Demo App.app */;
+			productReference = 07ADD3881FAD3EC900DF992A /* CityMotion Plugin.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -293,9 +293,9 @@
 				INFOPLIST_FILE = "$(SRCROOT)/CMWDemoApp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.5.3;
+				MARKETING_VERSION = 1.2.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.transitscreen.cmwdemo;
-				PRODUCT_NAME = "CMW Demo App";
+				PRODUCT_NAME = "CityMotion Plugin";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -311,9 +311,9 @@
 				INFOPLIST_FILE = "$(SRCROOT)/CMWDemoApp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.5.3;
+				MARKETING_VERSION = 1.2.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.transitscreen.cmwdemo;
-				PRODUCT_NAME = "CMW Demo App";
+				PRODUCT_NAME = "CityMotion Plugin";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

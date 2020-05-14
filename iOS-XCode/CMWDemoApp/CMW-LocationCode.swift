@@ -1,5 +1,5 @@
 //
-//  CityMotion Webview Demo App
+//  CityMotion Plugin Demo App
 //
 //  CMW-LocationCode.swift
 //  View Controller Module
@@ -19,7 +19,8 @@ class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDel
     var cityMotionParameters = ""
 
     // MARK: Production root URL, no need to change unless instructed to
-    var cityMotionWebviewBaseURL = "https://citymotion.io"
+    // /partner path is required now to establish a context for webview only features
+    var cityMotionWebviewBaseURL = "https://citymotion.io/partner"
 
     // MARK: Scene UI
     var safeAreaView: UIView!
@@ -126,7 +127,7 @@ class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDel
         URLCache.shared.memoryCapacity = 0
         
         // MARK: Load webview
-        let cityMotionURL = "\(cityMotionWebviewBaseURL)/?key=\(cityMotionWebviewKey)&locationCode=\(cityMotionLocationCode)\(cityMotionParameters)"
+        let cityMotionURL = "\(cityMotionWebviewBaseURL)?key=\(cityMotionWebviewKey)&locationCode=\(cityMotionLocationCode)\(cityMotionParameters)"
         if let url = URL(string: cityMotionURL) {
             self.webView.load(URLRequest(url: url))
         }

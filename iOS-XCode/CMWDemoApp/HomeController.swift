@@ -1,5 +1,5 @@
 //
-//  CityMotion Webview Demo App
+//  CityMotion Plugin Demo App
 //  HomeController.swift
 //  Home Scene that simulates a third-party integration app
 //
@@ -23,7 +23,7 @@ class HomeController: UIViewController {
         self.hideKeyboardWhenTappedAround()
 
         if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            headerTitle.text = "CityMotion Webview Demo App v\(appVersion)"
+            headerTitle.text = "CityMotion Plugin Demo App v\(appVersion)"
         }
 
     }

@@ -1,5 +1,5 @@
 //
-//  CityMotion Webview Demo App
+//  CityMotion Plugin Demo App
 //
 //  CMW-Coordinates.swift
 //  View Controller Module
@@ -21,7 +21,8 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
     var cityMotionParameters = ""
 
     // MARK: Production root URL, no need to change unless instructed to
-    var cityMotionWebviewBaseURL = "https://citymotion.io"
+    // /partner path is required now to establish a context for webview only features
+    var cityMotionWebviewBaseURL = "https://citymotion.io/partner"
 
     // MARK: Scene UI
     var safeAreaView: UIView!

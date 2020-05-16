@@ -1,17 +1,23 @@
 # CityMotion-Plugin Integration Partner API Documentation
 **Version 1.2.+**
 
-CityMotion-Plugin provides local real-time mobility information displayed on "cards" in a web app designed to be integrated into other apps. The Plugin loads CityMotion-Web (CMW) which is a HTML5 web app using the ReactJS framework.  This app performs standard HTTP calls about every minute to its API to update page information.
+CityMotion-Plugin provides local real-time transportation information in a web app designed to be integrated into other apps. 
 
-CMW is designed to be loaded inside a native WebView browser view within your app or website. Individual cards are responsive with a minimum width of 300px and a maximum width of 500px, to preserve legibility of the information presented. This should accommodate most mobile and tablet device dimensions.  
+The Plugin loads the CityMotion-Web (CMW) web app, which uses the ReactJS framework.  This app performs standard HTTP calls about every minute to its API to update transportation information and display it on "cards".
+
+CMW is designed to be loaded inside a native WebView browser view within your app or website. Individual cards are responsive with a minimum width of 300px and a maximum width of 500px, to preserve legibility of the information presented. This should accommodate most mobile and tablet device dimensions.
+
+*Use cases:* There are two different use cases, corresponding to different endpoints: LocationCode, which loads information at a fixed location like a building ("hub"); and Coordinates, which loads information at any desired location (latitude/longitude). 
+
+*Levels of integration:* In addition, there are two different levels of integration. The simplest way to use CityMotion-Plugin is "*Basic Integration*," where we supply you with a short link to load in your WebView. Basic integration supports all features except links to external apps. *Advanced integration* allows external app links.
 
 ---
 
 # API Endpoints
 
-This section describes the URL endpoints available and their optional parameters. See the integration section for how to setup your app so these links work properly.
+This section describes the URL endpoints available and their optional parameters. See the Custom Third Party Integration Guide for how to set up your app so these links work properly.
 
-For most minor integration partners we will assign a short link in the form of https://citymo.io/{locationCode} and manage the redirection URL. For major integration partners utilizing the full API, they may proceed to use the features outlined in this document.
+For most basic integrations we will assign a short link in the form of https://citymo.io/{locationCode} and manage the redirection URL. For Advanced Integration partners utilizing the full API, they may proceed to use the features outlined in this document.
 
 ## Location Code Endpoint
 
@@ -54,7 +60,7 @@ Page will show an error message if location code or customer key is incorrect.
 
 GET a CityMotion-Web at a set of coordinates.
 
-This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at the supplied coordinates.  The information is curated by TransitScreen for your users. The information asynchronously updates every 55 seconds.
+This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at the supplied coordinates. The information asynchronously updates every 55 seconds.
 
 Obtain your user’s Location Services latitude and longitude and pass the information to the endpoint URL string.  If the user changes location, the webpage will not update to the user’s location.   You must update the URL string with the new coordinates and reload the WebView.  
 
@@ -163,23 +169,23 @@ These apply to all endpoints in our API.  All optional parameters means these do
   - `universal` only buttons with an https address will appear (ie: Uber, Lyft), **this does not necessarily require Custom code but may produce unintended results if the user does not have the external app downloaded**
   - `true` all link buttons will appear, **this requires Custom Third Party Integration Guide to navigate users to external apps**
 Example: `externalLinks=true`
-  
-# Custom Third Party Integration Guide
-CityMotion Webview (CMW) is intended to work inside your third-party native mobile apps (Customer App).  We define two levels of integration:
 
-- Minor Integration - Customer loads a short link in their Native Webview 
-  - TransitScreen provides a short link that redirects to the final API. We manage the content and features delivered on your short link. 
-  - All features work except external links (which require Custom code).  Universal Links typically do work depending on your app's webview policy.
-  - This is typically a Location Code endpoint installation.
-  - Coordinates endpoints can work but coordinate information must be manually set in the URL. This is appropriate for showing a user's location at a specific moment. This experience will not follow the user around and for example, the page must be reloaded with a new URL each time the user does move.
+--
+
+# Levels of Integration
+
+## Basic Integration
+
+In Basic Integration, you load a short link we provide into your Native Webview.
+  - All features work except external links. Universal Links typically do work depending on your app's webview policy.
+  - This is often a Location Code endpoint. 
+  - If you use the Coordinates endpoint, coordinate information must be manually set in the URL. This requires that you have already requested user permission for Location Services, determined the user's latitude and longitude and added those parameters to the URL. This is appropriate for showing a user's location at a specific moment. If you need the app to follow the user's movements, you will need to reload the app with a new URL each time the user moves. 
   
-- Major Integration - Customer loads the CMW with Plugin code
+## Advanced Integration
+
+In Advanced Integration, you use the Plugin code we provide to load.
   - All features work including external links (CMW provides plugin to handle external app redirects)
-  - Full integration with Coordinates endpoint (CMW provides plugin to hook into Location Services)
-
-The full CMW experience **requires Major Integration** especially for the highly requested **external links** feature. 
-
-## Major Integration
+  - This provides full integration with Coordinates endpoint (CMW provides plugin to hook into Location Services)
 
 ### iOS
 
@@ -194,22 +200,7 @@ The Coordinates plugin provides the following:
 
 For both LocationCode and Coordinates plugins, the plugin provides external link handler requests.
 
-## Minor Integration
-
-### iOS and Android
-- Simply load a Location Code URL in your Webview
-- The Coordinates URL requires that you have already requested user permission for Location Services, determined the user's latitude and longitude and added those parameters to the URL.
-
-# Core Features
-
-CMW has built-in core features that allow the user experience to be more useful in accessing information. These may be behaviors already noted in this documentation.
-
-- Route Alerts: Card rows will show agency alerts when available.  This core feature is available only in select markets currently in Boston and New York City. 
-- Row Tap to Expand: Card rows will expand to show more prediction information available from the API than the first two predictions.  Tapping again will collapse it.
-- See More Card Rows: Stops that have an excessive amount of incoming vehicle routes will be hidden and a footer button will be available to expand to see these additional rows. 
-- Responsive Column Design: Columns will break depending on the device resolution. Mobile has 1 column, tablet has 2 or 3 columns, and desktops beyond have up to 4 columns.
-- Auto Updating: About every 55 seconds, the web application will request new arrival data from the API and asynchronously update cards. There is no need to auto-refresh the page.  For Location Codes, only row data is affected.  For Coordinates calls, cards may appear or disappear if the user is moving.
-- Update Recovery: In the event of network connection interruption or slowdown, the updater will back off and continue re-attempting to call the server for new API data. 
+--
 
 # Frequent Questions
 
@@ -220,5 +211,5 @@ CMW has built-in core features that allow the user experience to be more useful 
 - This may be helpful if you know your user wants to quickly see popular transit options such as the Subway in New York. 
 
 ### Why can't I see a certain transportation or service card?
-- Transit may not be running or is available in your area.  If you feel like a service is missing please reach out to us to confirm. 
+- that service may not currently be running or be available in your area.  If you feel like a service is missing please reach out to us to confirm. 
 

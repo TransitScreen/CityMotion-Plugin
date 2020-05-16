@@ -51,8 +51,7 @@ At minimum, an API call requires a customer `key` and a location to be set (eith
 - Example: `locationCode=building123`
 
 ### Optional Parameters
-
-See (#optional-parameters-guide) below
+See [Optional Parameters](#optional-parameters-guide) below
 
 ### Error Handling
 Page will show an error message if location code or customer key is incorrect.
@@ -89,14 +88,14 @@ If you use both locationCode and coordinates endpoints, the locationCode will ov
 - Example: `coordinates=38.9019,-77.0389`
 
 ### Optional Parameters
-See (#optional-parameters-guide) below
+See [Optional Parameters](#optional-parameters-guide) below
 
 ### Error Handling
 Page will show an error message if the customer key is incorrect.  
 
 ---
 
-## [Optional Parameters Guide](#optional-parameters-guide)
+## Optional Parameters Guide
 These apply to all endpoints in our API.  All optional parameters means these do not need to be included for CityMotion to function properly.  They provide live customization pathways of the webview display.  These features exist on the webpage side, not your app.
 
 ### Card Maps (maps)

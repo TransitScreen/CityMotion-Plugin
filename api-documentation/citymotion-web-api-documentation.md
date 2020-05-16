@@ -11,8 +11,6 @@ CMW is designed to be loaded inside a native WebView browser view within your ap
 
 *Levels of integration:* In addition, there are two different levels of integration. The simplest way to use CityMotion-Plugin is "*Basic Integration*," where we supply you with a short link to load in your WebView. Basic integration supports all features except links to external apps. *Advanced integration* allows external app links.
 
----
-
 # API Endpoints
 
 This section describes the URL endpoints available and their optional parameters. See the Custom Third Party Integration Guide for how to set up your app so these links work properly.
@@ -93,8 +91,6 @@ See [Optional Parameters](#optional-parameters-guide) below
 ### Error Handling
 Page will show an error message if the customer key is incorrect.  
 
----
-
 ## Optional Parameters Guide
 These apply to all endpoints in our API.  All optional parameters means these do not need to be included for CityMotion to function properly.  They provide live customization pathways of the webview display.  These features exist on the webpage side, not your app.
 
@@ -170,8 +166,6 @@ These apply to all endpoints in our API.  All optional parameters means these do
   - `true` all link buttons will appear, **this requires Custom Third Party Integration Guide to navigate users to external apps**
 Example: `externalLinks=true`
 
---
-
 # Levels of Integration
 
 ## Basic Integration
@@ -199,8 +193,6 @@ The Coordinates plugin provides the following:
 ### Android
 
 For both LocationCode and Coordinates plugins, the plugin provides external link handler requests.
-
---
 
 # Frequently Asked Questions
 

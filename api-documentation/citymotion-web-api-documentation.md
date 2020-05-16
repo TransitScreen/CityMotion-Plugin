@@ -9,7 +9,9 @@ CMW is designed to be loaded inside a native WebView browser view within your ap
 
 *Use cases:* There are two different use cases, corresponding to different endpoints: LocationCode, which loads information at a fixed location like a building ("hub"); and Coordinates, which loads information at any desired location (latitude/longitude). 
 
-*Levels of integration:* In addition, there are two different levels of integration. The simplest way to use CityMotion-Plugin is "*Basic Integration*," where we supply you with a short link to load in your WebView. Basic integration supports all features except links to external apps. *Advanced integration* allows external app links.
+By default, CityMotion-Plugin is functional, however setting optional parameters unlocks additional functionality. 
+
+Beyond these optional parameters, there are two different levels of integration. The simplest way to use CityMotion-Plugin is "*Basic Integration*," where we supply you with a short link to load in your WebView. Basic integration supports all features except links to external apps. *Advanced integration* allows external app links.
 
 # API Endpoints
 
@@ -92,10 +94,10 @@ See [Optional Parameters](#optional-parameters-guide) below
 Page will show an error message if the customer key is incorrect.  
 
 ## Optional Parameters Guide
-These apply to all endpoints in our API.  All optional parameters means these do not need to be included for CityMotion to function properly.  They provide live customization pathways of the webview display.  These features exist on the webpage side, not your app.
+These features enhance CityMotion by enabling additional functionality in its web app, but are not required for it to function properly. They apply to all API endpoints.
 
 ### Card Maps (maps)
-- Description:  A card pop-up that displays an interactive map.  Accessed through tapping on a card header map icon. 
+- Description:  Enables a pop-up that displays an interactive map when the user taps the map icon on a card header.
 - Requirements: None, uses client-side Mapbox
 - Parameter Name: `maps`
 - Parameter Values:
@@ -103,7 +105,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
   + `true`: Enables maps
 - Example: `maps=true`
 
-### UI Theme "Dark Mode" (ui)
+### UI Theme (ui)
 - Description:  Changes the color theme to the specified mode.  Currently enables a dark mode. Default theme is light.
 - Requirements: None
 - Parameter Name: `ui`
@@ -113,7 +115,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
 - Example: `ui=dark`
 
 ### Navigation Bar (barPosition)
-- Description:  Shows a navigation bar which lets the user navigate between different transportation categories.
+- Description:  Shows a navigation bar which lets the user navigate between different transportation modes such as buses and trains.
 - Requirements: None
 - Parameter Name: `barPosition` 
 - Parameter Values: 
@@ -123,7 +125,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
 - Example: `barPosition=top`
 
 ### Landing View (openTo)
-- Description:  Opens the viewport to specified transportation category.  Combined with Navigation Bar, lets the user begin in a particular landing view.  Without a Navigation Bar, the user will be permanently shown only the specified category.
+- Description:  Opens the viewport to specified transportation category.  Combined with Navigation Bar, lets the user begin in a particular transportation mode.  If Navigation Bar is not enabled, the user will not be able to change which mode is being shown.
 - Requirements: None
 - Parameter Name: `openTo`
 - Parameter Values:
@@ -145,7 +147,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
 - Example: `favorites=true`
 
 ### Location Header (menu)
-- Description: Displays a header that describes the user's current location and some options allow for changing the location of nearby transportation options.  
+- Description: Displays a header that lets the user change their current location to a different location by searching. If using the locationCode API, the user can change to any authorized hub location. If using the Coordinates API, the user can change to any location.  
 - Requirements: Cookies allowed. Should work with the default cookie preservation behavior of WebView Safari. Do not clear session cookies.
 - Parameter Name: `menu` 
 - Parameter Values:

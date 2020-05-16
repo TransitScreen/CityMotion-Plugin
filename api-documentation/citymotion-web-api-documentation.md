@@ -50,8 +50,9 @@ At minimum, an API call requires a customer `key` and a location to be set (eith
   - String: A short phrase with letters and/or numbers, no spaces, lowercased
 - Example: `locationCode=building123`
 
-#### Optional Parameters
-See Optional Parameters Guide
+### Optional Parameters
+
+See (#Optional-Parameters-Guide) below
 
 ### Error Handling
 Page will show an error message if location code or customer key is incorrect.
@@ -87,15 +88,15 @@ If you use both locationCode and coordinates endpoints, the locationCode will ov
   - String: Numeric latitude and longitude coordinates, no spaces, separated by a comma.
 - Example: `coordinates=38.9019,-77.0389`
 
-#### Optional Parameters
-See Optional Parameters Guide
+### Optional Parameters
+See (#Optional-Parameters-Guide) below
 
 ### Error Handling
 Page will show an error message if the customer key is incorrect.  
 
 ---
 
-## Optional Parameters Guide
+## [Optional Parameters Guide](#Optional-Parameters-Guide)
 These apply to all endpoints in our API.  All optional parameters means these do not need to be included for CityMotion to function properly.  They provide live customization pathways of the webview display.  These features exist on the webpage side, not your app.
 
 ### Card Maps (maps)
@@ -202,7 +203,7 @@ For both LocationCode and Coordinates plugins, the plugin provides external link
 
 --
 
-# Frequent Questions
+# Frequently Asked Questions
 
 ### When should I use barPosition?
 - In large cities where there may be too many options, having a filter bar lets users find what they are looking for faster.  

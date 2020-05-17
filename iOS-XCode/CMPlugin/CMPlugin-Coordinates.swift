@@ -21,7 +21,7 @@ class CMWCoordinatesController: UIViewController, WKUIDelegate, WKNavigationDele
     var ADDITIONAL_PARAMS = "" // ie: &barPosition=bottom
 
     // MARK: Production Endpoint Domain, no need to change unless instructed to
-    var cityMotionDomain = "https://192.168.0.103:8000/partner"
+    var cityMotionDomain = "https://citymotion.io/partner"
 
     // MARK: Scene UI
     var safeAreaView: UIView!

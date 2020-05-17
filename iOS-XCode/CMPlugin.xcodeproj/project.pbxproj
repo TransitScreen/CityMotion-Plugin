@@ -12,20 +12,20 @@
 		07ADD3911FAD3EC900DF992A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07ADD38F1FAD3EC900DF992A /* Main.storyboard */; };
 		07ADD3931FAD3EC900DF992A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07ADD3921FAD3EC900DF992A /* Assets.xcassets */; };
 		07ADD3961FAD3EC900DF992A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07ADD3941FAD3EC900DF992A /* LaunchScreen.storyboard */; };
-		07F205122204E58C00A0BDB8 /* CMW-LocationCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F205112204E58C00A0BDB8 /* CMW-LocationCode.swift */; };
-		07F3476823465B1B00DA3C2A /* CMW-Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F3476723465B1B00DA3C2A /* CMW-Coordinates.swift */; };
+		07F205122204E58C00A0BDB8 /* CMPlugin-LocationCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F205112204E58C00A0BDB8 /* CMPlugin-LocationCode.swift */; };
+		07F3476823465B1B00DA3C2A /* CMPlugin-Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F3476723465B1B00DA3C2A /* CMPlugin-Coordinates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		07ADD3881FAD3EC900DF992A /* CMW Demo App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CMW Demo App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		07ADD38B1FAD3EC900DF992A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		07ADD38D1FAD3EC900DF992A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		07ADD3881FAD3EC900DF992A /* CityMotion-Plugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CityMotion-Plugin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		07ADD38B1FAD3EC900DF992A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = CMPlugin/AppDelegate.swift; sourceTree = "<group>"; };
+		07ADD38D1FAD3EC900DF992A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeController.swift; path = CMPlugin/HomeController.swift; sourceTree = "<group>"; };
 		07ADD3901FAD3EC900DF992A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		07ADD3921FAD3EC900DF992A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		07ADD3921FAD3EC900DF992A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = CMPlugin/Assets.xcassets; sourceTree = "<group>"; };
 		07ADD3951FAD3EC900DF992A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		07ADD3971FAD3EC900DF992A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		07F205112204E58C00A0BDB8 /* CMW-LocationCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMW-LocationCode.swift"; sourceTree = "<group>"; };
-		07F3476723465B1B00DA3C2A /* CMW-Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMW-Coordinates.swift"; sourceTree = "<group>"; };
+		07ADD3971FAD3EC900DF992A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = CMPlugin/Info.plist; sourceTree = "<group>"; };
+		07F205112204E58C00A0BDB8 /* CMPlugin-LocationCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CMPlugin-LocationCode.swift"; path = "CMPlugin/CMPlugin-LocationCode.swift"; sourceTree = "<group>"; };
+		07F3476723465B1B00DA3C2A /* CMPlugin-Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CMPlugin-Coordinates.swift"; path = "CMPlugin/CMPlugin-Coordinates.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +42,7 @@
 		07ADD37F1FAD3EC800DF992A = {
 			isa = PBXGroup;
 			children = (
-				07ADD38A1FAD3EC900DF992A /* CMWDemoApp */,
+				07ADD38A1FAD3EC900DF992A /* CMPlugin */,
 				07ADD3891FAD3EC900DF992A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,12 +50,12 @@
 		07ADD3891FAD3EC900DF992A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				07ADD3881FAD3EC900DF992A /* CMW Demo App.app */,
+				07ADD3881FAD3EC900DF992A /* CityMotion-Plugin.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		07ADD38A1FAD3EC900DF992A /* CMWDemoApp */ = {
+		07ADD38A1FAD3EC900DF992A /* CMPlugin */ = {
 			isa = PBXGroup;
 			children = (
 				07ADD3941FAD3EC900DF992A /* LaunchScreen.storyboard */,
@@ -63,11 +63,11 @@
 				07ADD3971FAD3EC900DF992A /* Info.plist */,
 				07ADD38B1FAD3EC900DF992A /* AppDelegate.swift */,
 				07ADD38D1FAD3EC900DF992A /* HomeController.swift */,
-				07F205112204E58C00A0BDB8 /* CMW-LocationCode.swift */,
-				07F3476723465B1B00DA3C2A /* CMW-Coordinates.swift */,
+				07F205112204E58C00A0BDB8 /* CMPlugin-LocationCode.swift */,
+				07F3476723465B1B00DA3C2A /* CMPlugin-Coordinates.swift */,
 				07ADD3921FAD3EC900DF992A /* Assets.xcassets */,
 			);
-			path = CMWDemoApp;
+			name = CMPlugin;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,7 +87,7 @@
 			);
 			name = CMWDemoApp;
 			productName = "TC Metro";
-			productReference = 07ADD3881FAD3EC900DF992A /* CMW Demo App.app */;
+			productReference = 07ADD3881FAD3EC900DF992A /* CityMotion-Plugin.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -107,7 +107,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 07ADD3831FAD3EC800DF992A /* Build configuration list for PBXProject "CMWDemoApp" */;
+			buildConfigurationList = 07ADD3831FAD3EC800DF992A /* Build configuration list for PBXProject "CMPlugin" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -144,9 +144,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				07ADD38E1FAD3EC900DF992A /* HomeController.swift in Sources */,
-				07F205122204E58C00A0BDB8 /* CMW-LocationCode.swift in Sources */,
+				07F205122204E58C00A0BDB8 /* CMPlugin-LocationCode.swift in Sources */,
 				07ADD38C1FAD3EC900DF992A /* AppDelegate.swift in Sources */,
-				07F3476823465B1B00DA3C2A /* CMW-Coordinates.swift in Sources */,
+				07F3476823465B1B00DA3C2A /* CMPlugin-Coordinates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +159,7 @@
 				07ADD3901FAD3EC900DF992A /* Base */,
 			);
 			name = Main.storyboard;
+			path = CMPlugin;
 			sourceTree = "<group>";
 		};
 		07ADD3941FAD3EC900DF992A /* LaunchScreen.storyboard */ = {
@@ -167,6 +168,7 @@
 				07ADD3951FAD3EC900DF992A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = CMPlugin;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -290,12 +292,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NH4E2Q2PY7;
-				INFOPLIST_FILE = "$(SRCROOT)/CMWDemoApp/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CMPlugin/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.5.3;
+				MARKETING_VERSION = 1.2.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.transitscreen.cmwdemo;
-				PRODUCT_NAME = "CMW Demo App";
+				PRODUCT_NAME = "CityMotion-Plugin";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -308,12 +310,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NH4E2Q2PY7;
-				INFOPLIST_FILE = "$(SRCROOT)/CMWDemoApp/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CMPlugin/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.5.3;
+				MARKETING_VERSION = 1.2.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.transitscreen.cmwdemo;
-				PRODUCT_NAME = "CMW Demo App";
+				PRODUCT_NAME = "CityMotion-Plugin";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -322,7 +324,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07ADD3831FAD3EC800DF992A /* Build configuration list for PBXProject "CMWDemoApp" */ = {
+		07ADD3831FAD3EC800DF992A /* Build configuration list for PBXProject "CMPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07ADD3981FAD3EC900DF992A /* Debug */,

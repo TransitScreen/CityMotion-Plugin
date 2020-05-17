@@ -33,11 +33,34 @@ class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDel
     override func loadView() {
         super.loadView()
         setupSceneScaffolding();
+        
+        // MARK: Add WKWebView with basic configuration
+        let webConfiguration = WKWebViewConfiguration()
+        let webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        self.browserView.addSubview(webView)
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: self.browserView.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: self.browserView.bottomAnchor),
+            webView.leadingAnchor.constraint(equalTo: self.browserView.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: self.browserView.trailingAnchor),
+        ])
+        self.webView = webView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSceneOnViewDidLoad();
+        
+        // MARK: Initialize WebView
+        self.webView.uiDelegate = self
+        self.webView.navigationDelegate = self
+        self.webView.allowsBackForwardNavigationGestures = true
+        
+        // MARK: Disable web view caching as CityMotion has continuous deployment
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
 
         // MARK: Load CityMotion-Webapp
         let cityMotionURL = "\(cityMotionDomain)/?key=\(API_KEY)&locationCode=\(LOCATION_CODE)\(ADDITIONAL_PARAMS)"
@@ -113,7 +136,6 @@ class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDel
         self.safeAreaView = safeAreaView
         
         // MARK: Add Scene header bar with Back button
-        
         let navigationBar = UINavigationBar(frame: .zero)
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         self.safeAreaView.addSubview(navigationBar)
@@ -136,19 +158,6 @@ class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDel
         ])
         self.browserView = browserView
             
-        // MARK: Add WKWebView
-        let webConfiguration = WKWebViewConfiguration()
-        let webView = WKWebView(frame: .zero, configuration: webConfiguration)
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        self.browserView.addSubview(webView)
-        NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: self.browserView.topAnchor),
-            webView.bottomAnchor.constraint(equalTo: self.browserView.bottomAnchor),
-            webView.leadingAnchor.constraint(equalTo: self.browserView.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: self.browserView.trailingAnchor),
-        ])
-        self.webView = webView
-
         // MARK: Spinner for slow phones
         let loadingSpinner = UIActivityIndicatorView(frame: .zero)
         loadingSpinner.translatesAutoresizingMaskIntoConstraints = false
@@ -168,16 +177,6 @@ class CMWLocationCodeController: UIViewController, WKUIDelegate, WKNavigationDel
         let backButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.done, target: self, action: #selector(dismissView(sender:)))
         navItems.setLeftBarButton(backButton, animated: true)
         self.navigationBar.items = [navItems]
-        
-        // MARK: Initialize WebView
-        self.webView.uiDelegate = self
-        self.webView.navigationDelegate = self
-        self.webView.allowsBackForwardNavigationGestures = true
-        
-        // MARK: Disable web view caching as CityMotion has continuous deployment
-        URLCache.shared.removeAllCachedResponses()
-        URLCache.shared.diskCapacity = 0
-        URLCache.shared.memoryCapacity = 0
     }
     
     // Scene scaffolding: Processes dismiss on navigation tap

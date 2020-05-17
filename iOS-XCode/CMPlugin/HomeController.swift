@@ -1,5 +1,5 @@
 //
-//  CityMotion Webview Demo App
+//  CityMotion Plugin Demo App
 //  HomeController.swift
 //  Home Scene that simulates a third-party integration app
 //

@@ -1,21 +1,27 @@
 # CityMotion-Plugin Integration Partner API Documentation
 **Version 1.2.+**
 
-CityMotion-Plugin provides local real-time mobility information displayed on "cards" in a web app designed to be integrated into other apps. The Plugin loads CityMotion-Web (CMW) which is a HTML5 webpage using the ReactJS framework.  This page performs standard HTTP calls about every minute to its API to update page information.
+CityMotion-Plugin provides local real-time transportation information in a web app designed to be integrated into other apps. 
 
-CMW is designed to be loaded inside a native WebView browser view within your app. Individual cards are responsive with a minimum width of 300px and a maximum width of 500px, to preserve legibility of the information presented. This should accommodate most mobile and tablet device dimensions.  
+The Plugin loads the CityMotion-Web (CMW) web app, which uses the ReactJS framework.  This app performs standard HTTP calls about every minute to its API to update transportation information and display it on "cards".
 
----
+CMW is designed to be loaded inside a native WebView browser view within your app or website. Individual cards are responsive with a minimum width of 300px and a maximum width of 500px, to preserve legibility of the information presented. This should accommodate most mobile and tablet device dimensions.
+
+*Use cases:* There are two different use cases, corresponding to different endpoints: LocationCode, which loads information at a fixed location like a building ("hub"); and Coordinates, which loads information at any desired location (latitude/longitude). 
+
+By default, CityMotion-Plugin is functional, however setting optional parameters unlocks additional functionality. 
+
+Beyond these optional parameters, there are two different levels of integration. The simplest way to use CityMotion-Plugin is "*Basic Integration*," where we supply you with a short link to load in your WebView. Basic integration supports all features except links to external apps. *Advanced integration* allows external app links.
 
 # API Endpoints
 
-This section describes the URL endpoints available and their optional parameters. See the integration section for how to setup your app so these links work properly.
+This section describes the URL endpoints available and their optional parameters. See the Custom Third Party Integration Guide for how to set up your app so these links work properly.
 
-For most minor integration partners we will assign a short link in the form of https://citymo.io/{locationCode} and manage the redirection URL. For major integration partners utilizing the full API, they may proceed to use the features outlined in this document.
+For most basic integrations we will assign a short link in the form of https://citymo.io/{locationCode} and manage the redirection URL. For Advanced Integration partners utilizing the full API, they may proceed to use the features outlined in this document.
 
 ## Location Code Endpoint
 
-GET a CityMotion WebView for a single Location Code.  
+GET a CityMotion-Web for a single Location Code.  
 
 This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at a single physical location associated with a Location Code.  The information is curated by TransitScreen for your users. The information asynchronously updates every 55 seconds.
 
@@ -44,17 +50,17 @@ At minimum, an API call requires a customer `key` and a location to be set (eith
   - String: A short phrase with letters and/or numbers, no spaces, lowercased
 - Example: `locationCode=building123`
 
-#### Optional Parameters
-See Optional Parameters Guide
+### Optional Parameters
+See [Optional Parameters](#optional-parameters-guide) below
 
 ### Error Handling
 Page will show an error message if location code or customer key is incorrect.
 
 ## Coordinates Endpoint
 
-GET a CityMotion Webview at a set of coordinates.
+GET a CityMotion-Web at a set of coordinates.
 
-This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at the supplied coordinates.  The information is curated by TransitScreen for your users. The information asynchronously updates every 55 seconds.
+This endpoint returns a fully-formed HTML webpage (using the React framework), that displays transportation choices at the supplied coordinates. The information asynchronously updates every 55 seconds.
 
 Obtain your user’s Location Services latitude and longitude and pass the information to the endpoint URL string.  If the user changes location, the webpage will not update to the user’s location.   You must update the URL string with the new coordinates and reload the WebView.  
 
@@ -81,19 +87,17 @@ If you use both locationCode and coordinates endpoints, the locationCode will ov
   - String: Numeric latitude and longitude coordinates, no spaces, separated by a comma.
 - Example: `coordinates=38.9019,-77.0389`
 
-#### Optional Parameters
-See Optional Parameters Guide
+### Optional Parameters
+See [Optional Parameters](#optional-parameters-guide) below
 
 ### Error Handling
 Page will show an error message if the customer key is incorrect.  
 
----
-
 ## Optional Parameters Guide
-These apply to all endpoints in our API.  All optional parameters means these do not need to be included for CityMotion to function properly.  They provide live customization pathways of the webview display.  These features exist on the webpage side, not your app.
+These features enhance CityMotion by enabling additional functionality in its web app, but are not required for it to function properly. They apply to all API endpoints.
 
 ### Card Maps (maps)
-- Description:  A card pop-up that displays an interactive map.  Accessed through tapping on a card header map icon. 
+- Description:  Enables a pop-up that displays an interactive map when the user taps the map icon on a card header.
 - Requirements: None, uses client-side Mapbox
 - Parameter Name: `maps`
 - Parameter Values:
@@ -101,7 +105,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
   + `true`: Enables maps
 - Example: `maps=true`
 
-### UI Theme "Dark Mode" (ui)
+### UI Theme (ui)
 - Description:  Changes the color theme to the specified mode.  Currently enables a dark mode. Default theme is light.
 - Requirements: None
 - Parameter Name: `ui`
@@ -111,7 +115,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
 - Example: `ui=dark`
 
 ### Navigation Bar (barPosition)
-- Description:  Shows a navigation bar which lets the user navigate between different transportation categories.
+- Description:  Shows a navigation bar which lets the user navigate between different transportation modes such as buses and trains.
 - Requirements: None
 - Parameter Name: `barPosition` 
 - Parameter Values: 
@@ -121,7 +125,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
 - Example: `barPosition=top`
 
 ### Landing View (openTo)
-- Description:  Opens the viewport to specified transportation category.  Combined with Navigation Bar, lets the user begin in a particular landing view.  Without a Navigation Bar, the user will be permanently shown only the specified category.
+- Description:  Opens the viewport to specified transportation category.  Combined with Navigation Bar, lets the user begin in a particular transportation mode.  If Navigation Bar is not enabled, the user will not be able to change which mode is being shown.
 - Requirements: None
 - Parameter Name: `openTo`
 - Parameter Values:
@@ -143,7 +147,7 @@ These apply to all endpoints in our API.  All optional parameters means these do
 - Example: `favorites=true`
 
 ### Location Header (menu)
-- Description: Displays a header that describes the user's current location and some options allow for changing the location of nearby transportation options.  
+- Description: Displays a header that lets the user change their current location to a different location by searching. If using the locationCode API, the user can change to any authorized hub location. If using the Coordinates API, the user can change to any location.  
 - Requirements: Cookies allowed. Should work with the default cookie preservation behavior of WebView Safari. Do not clear session cookies.
 - Parameter Name: `menu` 
 - Parameter Values:
@@ -163,23 +167,21 @@ These apply to all endpoints in our API.  All optional parameters means these do
   - `universal` only buttons with an https address will appear (ie: Uber, Lyft), **this does not necessarily require Custom code but may produce unintended results if the user does not have the external app downloaded**
   - `true` all link buttons will appear, **this requires Custom Third Party Integration Guide to navigate users to external apps**
 Example: `externalLinks=true`
-  
-# Custom Third Party Integration Guide
-CityMotion Webview (CMW) is intended to work inside your third-party native mobile apps (Customer App).  We define two levels of integration:
 
-- Minor Integration - Customer loads a short link in their Native Webview 
-  - TransitScreen provides a short link that redirects to the final API. We manage the content and features delivered on your short link. 
-  - All features work except external links (which require Custom code).  Universal Links typically do work depending on your app's webview policy.
-  - This is typically a Location Code endpoint installation.
-  - Coordinates endpoints can work but coordinate information must be manually set in the URL. This is appropriate for showing a user's location at a specific moment. This experience will not follow the user around and for example, the page must be reloaded with a new URL each time the user does move.
+# Levels of Integration
+
+## Basic Integration
+
+In Basic Integration, you load a short link we provide into your Native Webview.
+  - All features work except external links. Universal Links typically do work depending on your app's webview policy.
+  - This is often a Location Code endpoint. 
+  - If you use the Coordinates endpoint, coordinate information must be manually set in the URL. This requires that you have already requested user permission for Location Services, determined the user's latitude and longitude and added those parameters to the URL. This is appropriate for showing a user's location at a specific moment. If you need the app to follow the user's movements, you will need to reload the app with a new URL each time the user moves. 
   
-- Major Integration - Customer loads the CMW with Plugin code
+## Advanced Integration
+
+In Advanced Integration, you use the Plugin code we provide to load.
   - All features work including external links (CMW provides plugin to handle external app redirects)
-  - Full integration with Coordinates endpoint (CMW provides plugin to hook into Location Services)
-
-The full CMW experience **requires Major Integration** especially for the highly requested **external links** feature. 
-
-## Major Integration
+  - This provides full integration with Coordinates endpoint (CMW provides plugin to hook into Location Services)
 
 ### iOS
 
@@ -194,24 +196,7 @@ The Coordinates plugin provides the following:
 
 For both LocationCode and Coordinates plugins, the plugin provides external link handler requests.
 
-## Minor Integration
-
-### iOS and Android
-- Simply load a Location Code URL in your Webview
-- The Coordinates URL requires that you have already requested user permission for Location Services, determined the user's latitude and longitude and added those parameters to the URL.
-
-# Core Features
-
-CMW has built-in core features that allow the user experience to be more useful in accessing information. These may be behaviors already noted in this documentation.
-
-- Route Alerts: Card rows will show agency alerts when available.  This core feature is available only in select markets currently in Boston and New York City. 
-- Row Tap to Expand: Card rows will expand to show more prediction information available from the API than the first two predictions.  Tapping again will collapse it.
-- See More Card Rows: Stops that have an excessive amount of incoming vehicle routes will be hidden and a footer button will be available to expand to see these additional rows. 
-- Responsive Column Design: Columns will break depending on the device resolution. Mobile has 1 column, tablet has 2 or 3 columns, and desktops beyond have up to 4 columns.
-- Auto Updating: About every 55 seconds, the web application will request new arrival data from the API and asynchronously update cards. There is no need to auto-refresh the page.  For Location Codes, only row data is affected.  For Coordinates calls, cards may appear or disappear if the user is moving.
-- Update Recovery: In the event of network connection interruption or slowdown, the updater will back off and continue re-attempting to call the server for new API data. 
-
-# Frequent Questions
+# Frequently Asked Questions
 
 ### When should I use barPosition?
 - In large cities where there may be too many options, having a filter bar lets users find what they are looking for faster.  
@@ -220,5 +205,5 @@ CMW has built-in core features that allow the user experience to be more useful 
 - This may be helpful if you know your user wants to quickly see popular transit options such as the Subway in New York. 
 
 ### Why can't I see a certain transportation or service card?
-- Transit may not be running or is available in your area.  If you feel like a service is missing please reach out to us to confirm. 
+- that service may not currently be running or be available in your area.  If you feel like a service is missing please reach out to us to confirm. 
 

@@ -32,13 +32,18 @@ class HomeController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: (Any)?) {
         if segue.destination is CMWLocationCodeController {
             let vc = segue.destination as? CMWLocationCodeController
-            vc?.cityMotionWebviewKey = customerKey.text!
-            vc?.cityMotionLocationCode = locationCode.text!
-            vc?.cityMotionParameters = parameters.text!
+            vc?.API_KEY = customerKey.text!
+            vc?.LOCATION_CODE = locationCode.text!
+            vc?.ADDITIONAL_PARAMS = parameters.text!
+
+            vc?.modalPresentationStyle = .fullScreen
+
         } else if segue.destination is CMWCoordinatesController {
             let vc = segue.destination as? CMWCoordinatesController
-            vc?.cityMotionWebviewKey = customerKey.text!
-            vc?.cityMotionParameters = parameters.text!
+            vc?.API_KEY = customerKey.text!
+            vc?.ADDITIONAL_PARAMS = parameters.text!
+
+            vc?.modalPresentationStyle = .fullScreen
         }
     }
     

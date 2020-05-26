@@ -174,14 +174,14 @@ Example: `externalLinks=true`
 
 In Basic Integration, you load a short link we provide into your Native Webview.
   - All features work except external links. Universal Links typically do work depending on your app's webview policy.
-  - This is often a Location Code endpoint. 
-  - If you use the Coordinates endpoint, coordinate information must be manually set in the URL. This requires that you have already requested user permission for Location Services, determined the user's latitude and longitude and added those parameters to the URL. This is appropriate for showing a user's location at a specific moment. If you need the app to follow the user's movements, you will need to reload the app with a new URL each time the user moves. 
+  - This is often to display a Location Code endpoint. 
+  - With the Coordinates endpoint, the app does not continue to track the user.  
   
 ## Advanced Integration
 
 In Advanced Integration, you use the Plugin code we provide to load.
   - All features work including external links (CMW provides plugin to handle external app redirects)
-  - This provides full integration with Coordinates endpoint (CMW provides plugin to hook into Location Services)
+  - This provides full integration with Coordinates endpoint and continues to track the user's location (CMW provides plugin to hook into Location Services)
 
 ### iOS
 

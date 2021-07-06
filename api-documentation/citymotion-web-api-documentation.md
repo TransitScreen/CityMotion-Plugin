@@ -168,6 +168,16 @@ These features enhance CityMotion by enabling additional functionality in its we
   - `true` all link buttons will appear, **this requires Custom Third Party Integration Guide to navigate users to external apps**
 Example: `externalLinks=true`
 
+### Language (lang)
+- Description: Translates all text into the target language. 
+- Requirements: The app supports a limited number of languages and only the ones specified here at this time.
+- Parameter Name: `lang` 
+- Parameter Values:
+  - Default: `none` or do not include this parameter. Defaults to US English.
+  - `fr` Standard French
+  - `fr_ca` Canadian French
+- Example: `lang=fr`
+
 # Levels of Integration
 
 ## Basic Integration

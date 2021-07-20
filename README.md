@@ -4,7 +4,7 @@ This documentation and code is intended to help partner mobile apps integrate Ci
 
 An API key and partner agreement are required - please email sales@transitscreen.com.
 
-Once you have those, **please [review this documentation](https://github.com/TransitScreen/CityMotion-Webview/blob/master/api-documentation/citymotion-web-api-documentation.md)** which will tell you what you need to know about the API and different endpoints you can use!
+Once you have those, **please [review this documentation](https://github.com/TransitScreen/CityMotion-Webview/blob/master/api-documentation/citymotion-web-api-documentation.md)** which will tell you what you need to know about the API and different endpoints you can use.
 
 ## Core features
 
@@ -14,8 +14,6 @@ Once you have those, **please [review this documentation](https://github.com/Tra
 - Show all departure times: The first two departures will be shown by default; card rows can be tapped to expand to show all predictions.
 - Route Alerts: Card rows will show agency alerts when available.
 - Update Recovery: In the event of network connection interruption or slowdown, we will automatically retry loading cards, with an intelligent back-off schedule.
-
-**Code samples** for iOS and Android are available if you clone this repository - [you can see a summary here](https://github.com/TransitScreen/CityMotion-Plugin/blob/master/api-documentation/code-samples.md).
 
 # Need help?
 support@transitscreen.com 

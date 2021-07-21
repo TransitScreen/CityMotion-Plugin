@@ -1,9 +1,9 @@
-# CityMotion-Plugin Integration Partner API Documentation
+# CityMotion-Plugin Integration Partner Documentation
 **Version 1.2.+**
 
 CityMotion-Plugin provides local real-time transportation information in a web app designed to be integrated into other apps. 
 
-The Plugin loads the CityMotion-Web (CMW) web app, which uses the ReactJS framework.  This app performs standard HTTP calls about every minute to its API to update transportation information and display it on "cards".
+The Plugin loads the CityMotion-Web (CMW) web app, which uses the ReactJS framework.  This app performs standard HTTP calls about every minute to update transportation information and display it on "cards".
 
 CMW is designed to be loaded inside a native WebView browser view within your app or website. Individual cards are responsive with a minimum width of 300px and a maximum width of 500px, to preserve legibility of the information presented. This should accommodate most mobile and tablet device dimensions.
 
@@ -11,13 +11,13 @@ CMW is designed to be loaded inside a native WebView browser view within your ap
 
 By default, CityMotion-Plugin is functional, however setting optional parameters unlocks additional functionality. 
 
-Beyond these optional parameters, there are two different levels of integration. The simplest way to use CityMotion-Plugin is "*Basic Integration*," where we supply you with a short link to load in your WebView. Basic integration supports all features except links to external apps. *Advanced integration* allows external app links.
+Beyond these optional parameters, there are two different levels of integration. The simplest, no-code way to use CityMotion-Plugin is "*Basic Integration*," where we supply you with a short link to load in your WebView. Basic integration supports all features except links to external apps. *Advanced integration* allows external app links.
 
-# API Endpoints
+# Endpoints
 
-This section describes the URL endpoints available and their optional parameters. See the Custom Third Party Integration Guide for how to set up your app so these links work properly.
+This section describes the endpoints available and their optional parameters. See the Custom Third Party Integration Guide for how to set up your app so these links work properly.
 
-For most basic integrations we will assign a short link in the form of https://citymo.io/{locationCode} and manage the redirection URL. For Advanced Integration partners utilizing the full API, they may proceed to use the features outlined in this document.
+For most basic integrations we will assign a short link in the form of https://citymo.io/{locationCode} and manage the redirection URL. Advanced Integration partners can use all the features outlined in this document.
 
 ## Location Code Endpoint
 

@@ -2,15 +2,15 @@
 
 **Version 1.5.+**
 
-CityMotion-Plugin wrapper code on iOS or Android provides local real-time transportation information in a web app designed to be integrated into other apps.  The Plugin loads the CityMotion-Web (CMW) web app, which runs on a ReactJS framework.  This app performs standard HTTP calls about every minute to update transportation information and display it on "cards".
+CityMotion-Plugin provides local real-time transportation information in a web app designed to be integrated into other iOS or Android apps.  The Plugin loads the CityMotion-Web (CMW) web app, which runs on a ReactJS framework.  This app performs standard HTTP calls about every minute to update transportation information and display it on "cards".
 
 # Core Features
 
-- Individual cards display information and are responsive with a minimum width of 300px and a maximum width of 500px. This should accommodate most mobile and tablet device dimensions.
-- Responsive design: Columns will break depending on the device resolution. Mobile has 1 column, tablet has 2 or 3 columns, and desktops beyond have up to 4 columns.
-- Auto updating: About every 55 seconds, the web application will request new arrival data and asynchronously update cards. There is no need to auto-refresh the page.  For Location Codes, only row data is affected.  For Coordinates calls, cards may appear or disappear if the user is moving.
-- Show more routes: Cards that have an large number of options will show more upon tapping a footer button. 
-- Show all departure times: The first two departures will be shown by default; card rows can be tapped to expand to show all predictions.
+- Cards: Transportation information is displayed in multiple "cards" in 1 or more columns. 
+- Responsive design: To accommodate most mobile and tablet device dimensions, cards are responsive, with a minimum width of 300px and a maximum width of 500px. Columns will break depending on the device resolution. Mobile has 1 column, tablet has 2 or 3 columns, and desktops beyond have up to 4 columns.
+- Auto updating: About every 55 seconds, the web application will request new arrival data and asynchronously update cards. There is no need to auto-refresh the page.  For Location Codes, only data within cards will change.  For Coordinates calls, cards may also appear or disappear if the user is moving.
+- Show more routes: Cards that have an large number of options will expand if the user taps a button. 
+- Show more departure times: The first two departures will be shown by default; card rows can be tapped to expand to show all predictions.
 - Route alerts: Card rows will show agency alerts when available.
 - Update recovery: In the event of network connection interruption or slowdown, we will automatically retry loading cards, with an intelligent back-off schedule.
 
@@ -18,23 +18,23 @@ CityMotion-Plugin wrapper code on iOS or Android provides local real-time transp
 
 To clarify the base URL domains used in this documentation: 
 
-- https://citymo.io is our short link service that conceals the longer endpoint URL. Most users with a basic integration will be given this URL.
+- https://citymo.io is our short link service that conceals the longer endpoint URL and parameters. Most basic integrations will use this URL.
 
-- https://citymotion.io is the direct endpoint which is appended query parameters. It is preferred only advanced integration users use this endpoint. 
+- https://citymotion.io is the direct endpoint to which query parameters can be appended. Only advanced integration users should use this endpoint. 
 
 # Integration Use Cases
 
-CityMotion-Plugin is intended to be used in the following ways:
+CityMotion-Plugin can be used in the following modes. Depending on your use case, you may have purchased Location Code or you may have access to Coordinates mode.
 
-1. *Location Code* - A URL referencing a `locationCode` that provides a fixed location with pre-determined cards (ie: https://citymo.io/{LOCATION_CODE} or https://citymotion.io/?key={KEY}&locationCode={LOCATION_CODE})
+1. *Location Code* - A URL referencing a `locationCode` that provides pre-determined cards for a fixed location like a building (ie: https://citymo.io/{LOCATION_CODE} or https://citymotion.io/?key={KEY}&locationCode={LOCATION_CODE})
 
-  - *In-App* - Load this URL in a WebView inside your third-party app. This supports most features except for external app links.
+  - *In-App* - Load this URL in a WebView inside your third-party app. This supports all features except external app links.
 
-  - *In-App with Plugin Code* - Load this URL in a WebView using our Plugin wrapper code.  This supports all features including external app links. 
+  - *In-App with Plugin Code* - Load this URL in a WebView using our Plugin wrapper code.  This supports all features. 
 
-  - *External Browser* - Load this URL in a Safari browser (triggered from your app). This supports all features without use of wrapper code. 
+  - *External Browser* - Load this URL in a Safari browser (triggered from your app). This supports all features without use of wrapper code, but takes users out of your app. 
 
-2. *Coordinates* - A URL referencing a `coordinates` (latitude, longitude) that will query our API for information at that spot. (ie: http://citymotion.io/?key={KEY}&coordinates={LAT,LNG})  
+2. *Coordinates* - A URL referencing `coordinates` (latitude, longitude) that will query our API for information at that spot. (ie: http://citymotion.io/?key={KEY}&coordinates={LAT,LNG})  
 
   - *In-App* - Load this URL in a WebView inside your third-party app. This supports most features except for external app links.
 
@@ -44,11 +44,11 @@ CityMotion-Plugin is intended to be used in the following ways:
 
 3. *Geolocation* - A URL flagged with `geolocation=true` that will attempt to ask the user's browser for their current location. (ie: http://citymotion.io/?key={KEY}&geolocation=true) 
 
-  - *In-App* - This method is not supported, it requires Plugin Code. 
+  - *In-App* - This method is not supported.
 
-  - *In-App with Plugin Code* - Our Plugin wrapper code will automatically begin sending geolocation information to the WebView. 
+  - *In-App with Plugin Code* - Our Plugin wrapper code will automatically begin sending location information to the WebView. 
 
-  - *External Browser* - Load this URL in a Safari browser (triggered from your app). This supports all features without use of wrapper code. 
+  - *External Browser* - Load this URL in a Safari browser (triggered from your app). The user will then authorize Safari to provide location information to CityMotion Plugin.
 
 # Endpoints
 

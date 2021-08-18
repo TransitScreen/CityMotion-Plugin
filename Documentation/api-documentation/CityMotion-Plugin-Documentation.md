@@ -14,41 +14,33 @@ CityMotion-Plugin provides local real-time transportation information in a web a
 - Route alerts: Card rows will show agency alerts when available.
 - Update recovery: In the event of network connection interruption or slowdown, we will automatically retry loading cards, with an intelligent back-off schedule.
 
-# Base URL
-
-To clarify the base URL domains used in this documentation: 
-
-- https://citymo.io is our short link service that conceals the longer endpoint URL and parameters. Most basic integrations will use this URL.
-
-- https://citymotion.io is the direct endpoint to which query parameters can be appended. Only advanced integration users should use this endpoint. 
-
 # Integration Use Cases
 
-CityMotion-Plugin can be used in the following modes. Depending on your use case, you may have purchased Location Code or you may have access to Coordinates mode.
+CityMotion-Plugin can be used in two modes depending on your use case - you may have purchased a Location Code for your buildings,  or you may have access to Coordinates mode for use anywhere.
 
-1. *Location Code* - A URL referencing a `locationCode` that provides pre-determined cards for a fixed location like a building (ie: https://citymo.io/{LOCATION_CODE} or https://citymotion.io/?key={KEY}&locationCode={LOCATION_CODE})
+CityMotion-Plugin can be integrated into apps in three ways depending on your technical needs. 
+- You will have access to the most features and best experience if you use *In-App with Plugin Code* integration, but it requires you to add native code to your app. 
+- To get started faster, you can use our no-code integrations. The *In-App* integration is the best option if you don't require external app links. *External Browser* supports external app links, but loads in an external web browser; it can also be used if your app does not have Location Services enabled.
 
+1. *Location Code* - A URL referencing a `locationCode` that provides pre-determined cards for a fixed location like a building (ie: https://citymo.io/{LOCATION_CODE} (Note: https://citymo.io is our short link service that conceals the longer endpoint URL and parameters.)
+
+Low-code option:
+  - *In-App with Plugin Code* - Load this URL in a WebView using our Plugin wrapper code.  This supports all features including external app links. 
+
+No-code options:
   - *In-App* - Load this URL in a WebView inside your third-party app. This supports all features except external app links.
 
-  - *In-App with Plugin Code* - Load this URL in a WebView using our Plugin wrapper code.  This supports all features. 
-
-  - *External Browser* - Load this URL in a Safari browser (triggered from your app). This supports all features without use of wrapper code, but takes users out of your app. 
+  - *External Browser* - Load this URL in a Safari browser (triggered from your app). This supports all features including external app links, without the use of wrapper code, but takes users out of your app into Safari. 
 
 2. *Coordinates* - A URL referencing `coordinates` (latitude, longitude) that will query our API for information at that spot. (ie: http://citymotion.io/?key={KEY}&coordinates={LAT,LNG})  
 
-  - *In-App* - Load this URL in a WebView inside your third-party app. This supports most features except for external app links.
-
+Low-code option:
   - *In-App with Plugin Code* - Load this URL in a WebView using our Plugin wrapper code.  This supports all features including external app links. 
 
-  - *External Browser* - Load this URL in a Safari browser (triggered from your app). This supports all features without use of wrapper code. 
+No-code options:
+  - *In-App* - Load this URL in a WebView inside your third-party app. This supports most features except for external app links.
 
-3. *Geolocation* - A URL flagged with `geolocation=true` that will attempt to ask the user's browser for their current location. (ie: http://citymotion.io/?key={KEY}&geolocation=true) 
-
-  - *In-App* - This method is not supported.
-
-  - *In-App with Plugin Code* - Our Plugin wrapper code will automatically begin sending location information to the WebView. 
-
-  - *External Browser* - Load this URL in a Safari browser (triggered from your app). The user will then authorize Safari to provide location information to CityMotion Plugin.
+  - *External Browser* - Load this URL in a Safari browser (triggered from your app). This supports all features including external app links, without the use of wrapper code, but takes users out of your app into Safari. 
 
 # Endpoints
 
@@ -93,6 +85,10 @@ This endpoint returns the CMW web app that displays transportation choices at th
 - `key` - Provided by TransitScreen to identify your organization. Your key must be authorized to use coordinates endpoint. Example: `key=abcdefghijklmnopqrstuvwxyz0123456789abcdefghijklmnopqrstuvwxyz01`
 
 - `coordinates` - A set of latitude and longitude separated by comma. We prefer values are truncated to 4 decimal places (ie: 0.0001). This parameter must be set alone with the above key.  It will be overriden in the presence of `locationCode`. Example: `coordinates=38.9019,-77.0389`
+
+*Optional Parameters*
+
+- `geolocation` - if `true` and using Coordinates endpoint in an External Browser, CityMotion will request the user's permission to get location and then update the user's current location as they move around. 
 
 - Also see [Optional Parameters](#optional-parameters-guide) below.
 

@@ -1,6 +1,6 @@
-# CityMotion-Plugin Documentation and Code Examples
+# Actionfigure Mobile Plugin Documentation and Code Examples
 
-This documentation and code is intended to help partner mobile apps integrate CityMotion Plugin. 
+This documentation and code is intended to help partner mobile apps integrate Actionfigure Mobile Plugin. 
 
 An API key and partner agreement are required - please email sales@actionfigure.ai
 

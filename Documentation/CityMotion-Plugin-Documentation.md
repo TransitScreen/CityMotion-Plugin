@@ -1,8 +1,8 @@
-# CityMotion-Plugin Documentation
+# Actionfigure Mobile Plugin Documentation
 
 **Version 1.5.+**
 
-CityMotion-Plugin provides local real-time transportation information in a web app designed to be integrated into other iOS or Android apps.  The Plugin loads the CityMotion-Web (CMW) web app, which runs on a ReactJS framework.  This app performs standard HTTP calls about every minute to update transportation information and display it on "cards".
+Actionfigure Mobile Plugin provides local real-time transportation information in a web app designed to be integrated into other iOS or Android apps.  The Plugin loads Actionfigure's CityMotion-Web (CMW) web app, which runs on a ReactJS framework.  This app performs standard HTTP calls about every minute to update transportation information and display it on "cards".
 
 # Core Features
 
@@ -16,9 +16,9 @@ CityMotion-Plugin provides local real-time transportation information in a web a
 
 # Integration Use Cases
 
-CityMotion-Plugin can be used in two modes depending on your use case - you may have purchased a Location Code for your buildings,  or you may have access to Coordinates mode for use anywhere.
+Actionfigure Mobile Plugin can be used in two modes depending on your use case - you may have purchased a Location Code for your buildings,  or you may have access to Coordinates mode for use anywhere.
 
-CityMotion-Plugin can be integrated into apps in three ways depending on your technical needs. 
+Actionfigure Mobile Plugin can be integrated into apps in three ways depending on your technical needs. 
 - You will have access to the most features and best experience if you use *In-App with Plugin Code* integration, but it requires you to add native code to your app. 
 - To get started faster, you can use our no-code integrations. The *In-App* integration is the best option if you don't require external app links. *External Browser* supports external app links, but loads in an external web browser; it can also be used if your app does not have Location Services enabled.
 
@@ -201,7 +201,7 @@ Example: `externalLinks=true`
 
 # In-App Integration
 
-This section further details *In-App* integrations of CityMotion-Plugin in your third party application (WebView).
+This section further details *In-App* integrations of Actionfigure Mobile Plugin in your third party application (WebView).
 
 ## Basic Integration
 
